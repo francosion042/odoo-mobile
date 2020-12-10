@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { ChannelsMessages, Channels, DirectMessages, Direct } from "../screens";
@@ -131,9 +132,7 @@ const DiscussTabNavigator = () => {
   }, []);
 
   const shouldChannelsHeaderBeShown = (route) => {
-    const routeName = route.state
-      ? route.state.routes[route.state.index].name
-      : "Channels";
+    const routeName = getFocusedRouteNameFromRoute(route) ?? "Channels";
 
     switch (routeName) {
       case "Channels":

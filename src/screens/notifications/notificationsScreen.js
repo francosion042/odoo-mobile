@@ -18,7 +18,13 @@ export default function Notifications() {
   };
   /////////////////////////////
 
-  //console.log("New Notification ......", newNotifications);
+  if (!notifications) {
+    return (
+      <View>
+        <Text>No Notifications</Text>
+      </View>
+    );
+  }
   return (
     <View>
       <ScrollView>

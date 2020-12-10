@@ -1,5 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Home, Notifiactions, Profiles } from "../screens";
@@ -11,9 +12,7 @@ const HomeStack = createStackNavigator();
 
 const HomeStackNavigator = ({ navigation, route }) => {
   const getProjectHeaderTitle = (route) => {
-    const routeName = route.state
-      ? route.state.routes[route.state.index].name
-      : "Projects";
+    const routeName = getFocusedRouteNameFromRoute(route) ?? "Projects";
 
     switch (routeName) {
       case "Projects":
@@ -24,9 +23,7 @@ const HomeStackNavigator = ({ navigation, route }) => {
   };
 
   const getDiscussHeaderTitle = (route) => {
-    const routeName = route.state
-      ? route.state.routes[route.state.index].name
-      : "Direct";
+    const routeName = getFocusedRouteNameFromRoute(route) ?? "Direct";
 
     switch (routeName) {
       case "Direct":
@@ -37,9 +34,7 @@ const HomeStackNavigator = ({ navigation, route }) => {
   };
 
   const shouldProjectHeaderBeShown = (route) => {
-    const routeName = route.state
-      ? route.state.routes[route.state.index].name
-      : "Projects";
+    const routeName = getFocusedRouteNameFromRoute(route) ?? "Projects";
 
     switch (routeName) {
       case "Projects":
@@ -48,11 +43,13 @@ const HomeStackNavigator = ({ navigation, route }) => {
   };
 
   const shouldDiscussHeaderBeShown = (route) => {
-    const routeName = route.state
-      ? route.state.routes[route.state.index].name
-      : "Discuss";
+    const routeName = getFocusedRouteNameFromRoute(route) ?? "Discuss";
+    console.log("Route Name" + routeName);
 
     switch (routeName) {
+      case "Discuss":
+        return false;
+
       case "Direct":
         return false;
 

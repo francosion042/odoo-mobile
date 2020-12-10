@@ -12,6 +12,7 @@ const Tab = createBottomTabNavigator();
 
 const ProjectsStackNavigator = ({ navigation, route }) => {
   if (route.state) {
+    console.log("Route Index " + route.state.index);
     navigation.setOptions({
       tabBarVisible: route.state.index > 0 ? false : true,
     });
