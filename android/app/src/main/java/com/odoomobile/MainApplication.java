@@ -27,6 +27,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Nullable;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;  // <--- Import Package 
+
 
 public class MainApplication extends Application implements ReactApplication {
   private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(
@@ -116,5 +118,5 @@ public class MainApplication extends Application implements ReactApplication {
         e.printStackTrace();
       }
     }
-  }
+  } 
 }
