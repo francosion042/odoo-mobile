@@ -4,6 +4,7 @@ import {
   View,
   ScrollView,
   RefreshControl,
+  Image,
 } from "react-native";
 import { ListItem } from "react-native-elements";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -28,7 +29,12 @@ export default function Channels({ navigation }) {
         if (response.success) {
           const params = {
             domain: [["channel_type", "=", "channel"]],
-            fields: ["name", "channel_type", "channel_message_ids"],
+            fields: [
+              "name",
+              "channel_type",
+              "channel_message_ids",
+              "image_128",
+            ],
           };
 
           Odoo.odoo
@@ -75,7 +81,16 @@ export default function Channels({ navigation }) {
               })
             }>
             <ListItem bottomDivider>
-              <Ionicons name="ios-people" size={40} color="#7c7bad" />
+              <Image
+                style={{
+                  borderRadius: 20,
+                  width: 30,
+                  height: 30,
+                }}
+                source={{
+                  uri: `data:image/png;base64,${c.image_128}`,
+                }}
+              />
               <ListItem.Content>
                 <ListItem.Title>{c.name}</ListItem.Title>
                 <ListItem.Subtitle>

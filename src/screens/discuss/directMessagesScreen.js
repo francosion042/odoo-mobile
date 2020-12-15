@@ -15,6 +15,7 @@ import { AuthContext, DiscussContext } from "../../contexts";
 import { LoadingScreen } from "../../commons";
 import styles from "./styles/messagesStyle";
 import { OdooConfig } from "../../../constants/configs";
+import MessageBubble from "./components/messageBubble";
 
 export default function DirectMessages({ route, navigation }) {
   const scrollViewRef = useRef();
@@ -112,33 +113,33 @@ export default function DirectMessages({ route, navigation }) {
         onContentSizeChange={() =>
           scrollViewRef.current.scrollToEnd({ animated: true })
         }>
-        {msgs.map((msg, i) => (
-          <ListItem key={i} bottomDivider>
-            <Image
-              style={styles.avatar}
-              source={{ uri: `data:image/png;base64,${msg.author_avatar}` }}
-            />
-            <ListItem.Content>
-              <ListItem.Title style={styles.author}>
-                {msg.author_id[1]}
-                {" - "}
-                <ListItem.Subtitle style={styles.date}>
-                  {msg.date}
-                </ListItem.Subtitle>
-              </ListItem.Title>
+        {msgs.map((msg, i) =>
+          // console.log(
+          //   "Author ID " + msg.author_id + " User ID " + user.partner_id
+          // )
 
-              <ListItem.Content></ListItem.Content>
-              <ListItem.Content>
-                <ListItem.Subtitle>
-                  Body:{" "}
-                  {extractHTML(msg.body)
-                    ? extractHTML(msg.body)
-                    : "(images are not supported)"}
-                </ListItem.Subtitle>
-              </ListItem.Content>
-            </ListItem.Content>
-          </ListItem>
-        ))}
+          msg.author_id[0] === user.partner_id ? (
+            <MessageBubble
+              key={i}
+              mine
+              text={
+                extractHTML(msg.body)
+                  ? extractHTML(msg.body)
+                  : "(images are not supported)"
+              }
+              date={msg.date}></MessageBubble>
+          ) : (
+            <MessageBubble
+              key={i}
+              avatar={msg.author_avatar}
+              text={
+                extractHTML(msg.body)
+                  ? extractHTML(msg.body)
+                  : "(images are not supported)"
+              }
+              date={msg.date}></MessageBubble>
+          )
+        )}
       </ScrollView>
 
       <View style={styles.footer}>

@@ -4,6 +4,7 @@ import {
   View,
   ScrollView,
   RefreshControl,
+  Image,
 } from "react-native";
 import { ListItem } from "react-native-elements";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -28,12 +29,18 @@ export default function Channels({ navigation }) {
         if (response.success) {
           const params = {
             domain: [["channel_type", "=", "chat"]],
-            fields: ["name", "channel_type", "channel_message_ids"],
+            fields: [
+              "name",
+              "channel_type",
+              "channel_message_ids",
+              "image_128",
+            ],
           };
 
           Odoo.odoo
             .search_read("mail.channel", params)
             .then((response) => {
+              console.log(response.data);
               addDirectChannels(response.data);
               setIsLoading(false);
               setIsRefreshing(false);
@@ -75,7 +82,17 @@ export default function Channels({ navigation }) {
               })
             }>
             <ListItem bottomDivider>
-              <Ionicons name="ios-person" size={40} color="#7c7bad" />
+              {/* <Ionicons name="ios-person" size={40} color="#7c7bad" /> */}
+              <Image
+                style={{
+                  borderRadius: 20,
+                  width: 30,
+                  height: 30,
+                }}
+                source={{
+                  uri: `data:image/png;base64,${c.image_128}`,
+                }}
+              />
               <ListItem.Content>
                 <ListItem.Title>{c.name}</ListItem.Title>
                 <ListItem.Subtitle>
