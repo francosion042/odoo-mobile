@@ -78,7 +78,7 @@ export default function Channels({ navigation }) {
             onPress={() =>
               navigation.navigate("DirectMessages", {
                 channel_id: c.id,
-                channel_name: c.name,
+                channel_name: splitNames(c.name, user.name),
               })
             }>
             <ListItem bottomDivider>
@@ -94,7 +94,7 @@ export default function Channels({ navigation }) {
                 }}
               />
               <ListItem.Content>
-                <ListItem.Title>{c.name}</ListItem.Title>
+                <ListItem.Title>{splitNames(c.name, user.name)}</ListItem.Title>
                 <ListItem.Subtitle>
                   Num of Messages: {c.channel_message_ids.length}
                 </ListItem.Subtitle>
@@ -106,4 +106,13 @@ export default function Channels({ navigation }) {
       </ScrollView>
     </View>
   );
+}
+
+function splitNames(names, userName) {
+  const nameArray = names.split(",");
+  for (let i = 0; i <= nameArray.length; i++) {
+    if (nameArray[i].trim() !== userName) {
+      return nameArray[i].trim();
+    }
+  }
 }

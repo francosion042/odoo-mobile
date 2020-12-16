@@ -83,7 +83,7 @@ export default function DirectMessages({ route, navigation }) {
                   message_type: "comment",
                   channel_ids: [channel_id],
                   body: typing,
-                  date: "new",
+                  date: "now",
                 },
               ]);
               console.log(response);

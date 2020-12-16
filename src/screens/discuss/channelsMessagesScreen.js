@@ -82,7 +82,7 @@ export default function ChannelsMessages({ route, navigation }) {
                   message_type: "comment",
                   channel_ids: [channel_id],
                   body: body,
-                  date: "new",
+                  date: "now",
                 },
               ]);
               console.log(response);

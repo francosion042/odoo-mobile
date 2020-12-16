@@ -84,7 +84,7 @@ export function Login({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.rect2}>
-        <Text style={styles.loremIpsum}>Odoo Consulting Mobile App</Text>
+        <Text style={styles.loremIpsum}>Odoo Mobile App</Text>
       </View>
       <View style={styles.rect}>
         <Input
