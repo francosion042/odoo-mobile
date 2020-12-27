@@ -34,6 +34,7 @@ export default function DirectMessages({ route, navigation }) {
         ms.push(messages[i]);
       }
     }
+    console.log(ms);
     setMsgs(ms);
     setIsLoading(false);
   }, [messages]);
@@ -86,7 +87,6 @@ export default function DirectMessages({ route, navigation }) {
                   date: "now",
                 },
               ]);
-              console.log(response);
             })
             .catch((e) => {
               console.log(e);

@@ -71,55 +71,18 @@ const App = () => {
 
   /////////////////////////////////////////////////Background Fetch//////////////////////////////////////////////////////////
 
-  // Configure it.
-  BackgroundFetch.configure(
-    {
-      minimumFetchInterval: 15, // <-- minutes (15 is minimum allowed)
-      // Android options
-      forceAlarmManager: false, // <-- Set true to bypass JobScheduler.
-      stopOnTerminate: false,
-      startOnBoot: true,
-    },
-    async (taskId) => {
-      console.log("[js] Received background-fetch event: ", taskId);
-      sendPushNotification();
-      // Required: Signal completion of your task to native code
-      // If you fail to do this, the OS can terminate your app
-      // or assign battery-blame for consuming too much background-time
-      BackgroundFetch.finish(taskId);
-    },
-    (error) => {
-      console.log("[js] RNBackgroundFetch failed to start");
-    }
-  );
-
-  // Optional: Query the authorization status.
-  BackgroundFetch.status((status) => {
-    switch (status) {
-      case BackgroundFetch.STATUS_RESTRICTED:
-        console.log("BackgroundFetch restricted");
-        break;
-      case BackgroundFetch.STATUS_DENIED:
-        console.log("BackgroundFetch denied");
-        break;
-      case BackgroundFetch.STATUS_AVAILABLE:
-        console.log("BackgroundFetch is enabled");
-        break;
-    }
-  });
-
   //////////////////////////////////////////////////////////////////////////////////////
 
   ///////////////////////////////////Push Notification///////////////////////////////////////////
-  const sendPushNotification = () => {
+  const sendPushNotification = (title, message) => {
     PushNotification.localNotification({
       /* Android Only Properties */
 
       actions: ["Open", "Cancel"], // (Android only) See the doc for notification actions to know more
       invokeApp: true, // (optional) This enable click on actions to bring back the application to foreground or stay in background, default: true
 
-      title: "My Notification Title", // (optional)
-      message: "My Notification Message", // (required)
+      title: title, // (optional)
+      message: message, // (required)
     });
   };
   // sendPushNotification();
@@ -132,7 +95,6 @@ const App = () => {
   if (isLoading) {
     return <LoadingScreen />;
   }
-  // Call the background task function
 
   return (
     <NavigationContainer>

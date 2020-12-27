@@ -5,10 +5,16 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import he from "he";
 import { AuthContext, NotificationsContext } from "../../contexts";
 import { LoadingScreen } from "../../commons";
+import { OdooConfig } from "../../../constants/configs";
 import styles from "./styles/notificationsStyles";
 
 export default function Notifications() {
-  const { notifications } = useContext(NotificationsContext);
+  const { user } = useContext(AuthContext);
+  // const [notifications, addNotifications] = useState("");
+  const { addNotifications, notifications } = useContext(NotificationsContext);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [networkError, setNetworkError] = useState(false);
 
   ////////////////////////////
   // the body of each message is a string of HTML element, so it needs to be etracted and decoded
@@ -18,6 +24,70 @@ export default function Notifications() {
   };
   /////////////////////////////
 
+  useEffect(() => {
+    const Odoo = new OdooConfig(user.email, user.password);
+    Odoo.odoo
+      .connect()
+      .then(async (response) => {
+        console.log(response.success);
+        console.log(user.email, "||", user.password);
+        if (response.success) {
+          //////////////////////////////////////////////
+          // get all messages and add them to  the discuss context. this will make it easier to navigate between chats
+          const params = {
+            domain: [["message_type", "=", "notification"]],
+            fields: [
+              "id",
+              "subject",
+              "body",
+              "author_id",
+              "author_avatar",
+              "message_type",
+              "channel_ids",
+              "date",
+            ],
+            order: "date DESC",
+          };
+
+          await Odoo.odoo
+            .search_read("mail.message", params)
+            .then((response) => {
+              if (response.data) {
+                const notes = response.data.filter((el) => {
+                  return el.subject;
+                });
+                addNotifications(notes);
+                setIsRefreshing(false);
+                setIsLoading(false);
+
+                // console.log("New Notification ......", newNotifications);
+                // //check if there's any new notification, then send the push notification if there is
+                // if (newNotifications) {
+                //   newNotifications.map((n) => {
+                //     // sendPushNotification(n.subject, n.body);
+                //   });
+                // }
+              }
+            })
+            .catch((e) => {
+              console.log(e);
+              setIsRefreshing(false);
+            });
+        } else {
+          setIsLoading(false);
+          setIsRefreshing(false);
+          setNetworkError(true);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, [isRefreshing]);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
   if (!notifications) {
     return (
       <View>
@@ -25,9 +95,24 @@ export default function Notifications() {
       </View>
     );
   }
+
+  // if (networkError) {
+  //   return (
+  //     <View>
+  //       <Text>No Network Connection</Text>
+  //     </View>
+  //   );
+  // }
+
   return (
     <View>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={isRefreshing}
+            onRefresh={() => setIsRefreshing(true)}
+          />
+        }>
         {notifications.map((n, i) => (
           <ListItem key={i} bottomDivider>
             {n.author_avatar ? (

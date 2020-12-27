@@ -17,6 +17,8 @@ target 'odoomobile' do
   use_flipper!
   pod 'RNBackgroundFetch', :path => '../node_modules/react-native-background-fetch'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   post_install do |installer|
     flipper_post_install(installer)
   end

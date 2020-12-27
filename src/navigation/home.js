@@ -2,7 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import Icon from "react-native-vector-icons/Ionicons";
 import { Home, Notifiactions, Profiles } from "../screens";
 import ProjectsTabNavigator from "./projects";
 import DiscussTabNavigator from "./discuss";
@@ -120,7 +120,7 @@ const HomeTabNavigator = () => {
           }
 
           // You can return any component that you like here!
-          return <Ionicons name={iconName} size={size} color={color} />;
+          return <Icon name={iconName} size={size} color={color} />;
         },
       })}
       tabBarOptions={{
