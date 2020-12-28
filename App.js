@@ -88,9 +88,11 @@ const App = () => {
   // sendPushNotification();
   ///////////////////////////////////////////////////////////////////////////////////////////////
 
-  setTimeout(() => {
-    setIsLoading(false);
-  }, 1000);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -100,33 +102,38 @@ const App = () => {
     <NavigationContainer>
       {/* check if the user data exists in the storage, otherwise show login page. */}
       {!user ? (
-        <Stack.Navigator>
-          <Stack.Screen
-            name="LogIn"
-            component={Login}
-            options={{
-              headerShown: false,
-            }}
-          />
-        </Stack.Navigator>
+        <>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="LogIn"
+              component={Login}
+              options={{
+                headerShown: false,
+              }}
+            />
+          </Stack.Navigator>
+          <StatusBar style="dark" />
+        </>
       ) : (
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Home"
-            component={HomeTabNavigator}
-            options={({ route }) => ({
-              title: getHeaderTitle(route),
-              headerShown: shouldHeaderBeShown(route),
-              headerLeft: null,
-              headerStyle: {
-                backgroundColor: "#7c7bad",
-              },
-              headerTintColor: "#fff",
-            })}
-          />
-        </Stack.Navigator>
+        <>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Home"
+              component={HomeTabNavigator}
+              options={({ route }) => ({
+                title: getHeaderTitle(route),
+                headerShown: shouldHeaderBeShown(route),
+                headerLeft: null,
+                headerStyle: {
+                  backgroundColor: "#7c7bad",
+                },
+                headerTintColor: "#fff",
+              })}
+            />
+          </Stack.Navigator>
+          <StatusBar style="light" />
+        </>
       )}
-      <StatusBar style="light" />
     </NavigationContainer>
   );
 };

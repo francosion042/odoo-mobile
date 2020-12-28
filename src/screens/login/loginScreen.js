@@ -1,9 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Text, View, TouchableOpacity } from "react-native";
-import { Input } from "react-native-elements";
+import {
+  Keyboard,
+  Text,
+  View,
+  TextInput,
+  TouchableWithoutFeedback,
+  Alert,
+  KeyboardAvoidingView,
+} from "react-native";
+import { Button } from "react-native-elements";
 import { CommonActions } from "@react-navigation/stack";
 import { OdooConfig } from "../../../constants/configs";
-import styles from "./styles/loginStyles";
+import styles from "./styles/style";
 import { LoadingScreen } from "../../commons";
 import { AuthContext } from "../../contexts";
 
@@ -81,38 +89,77 @@ export function Login({ navigation }) {
   if (isLoading) {
     return <LoadingScreen />;
   }
+
   return (
-    <View style={styles.container}>
-      <View style={styles.rect2}>
-        <Text style={styles.loremIpsum}>Odoo Mobile App</Text>
-      </View>
-      <View style={styles.rect}>
-        <Input
-          placeholder="Email"
-          placeholderColor="#c4c3cb"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          autoCapitalize="none"
-          autoCorrect={false}
-          style={styles.email}
-        />
-        <Input
-          placeholder="Password"
-          placeholderColor="#c4c3cb"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-          secureTextEntry={true}
-          autoCapitalize="none"
-          autoCorrect={false}
-          style={styles.password}
-        />
-        <Text style={styles.loremIpsum2}></Text>
-        <TouchableOpacity onPress={() => authenticate()} style={styles.button}>
-          <Text style={styles.logIn}>Log In</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    <KeyboardAvoidingView style={styles.containerView} behavior="padding">
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.loginScreenContainer}>
+          <View style={styles.loginFormView}>
+            <Text style={styles.logoText}>Odoo Mobile</Text>
+            <TextInput
+              placeholder="Username"
+              placeholderColor="#c4c3cb"
+              style={styles.loginFormTextInput}
+              value={email}
+              onChangeText={(text) => setEmail(text)}
+            />
+            <TextInput
+              placeholder="Password"
+              placeholderColor="#c4c3cb"
+              style={styles.loginFormTextInput}
+              secureTextEntry={true}
+              value={password}
+              onChangeText={(text) => setPassword(text)}
+            />
+            <Button
+              buttonStyle={styles.loginButton}
+              onPress={() => authenticate()}
+              title="Login"
+            />
+            {/* <Button
+              buttonStyle={styles.fbLoginButton}
+              onPress={() => this.onFbLoginPress()}
+              title="Login with Facebook"
+              color="#3897f1"
+            /> */}
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
+
+  // return (
+  //   <View style={styles.container}>
+  //     <View style={styles.rect2}>
+  //       <Text style={styles.loremIpsum}>Odoo Mobile App</Text>
+  //     </View>
+  //     <View style={styles.rect}>
+  //       <Input
+  //         placeholder="Email"
+  //         placeholderColor="#c4c3cb"
+  //         value={email}
+  //         onChangeText={(text) => setEmail(text)}
+  //         autoCapitalize="none"
+  //         autoCorrect={false}
+  //         style={styles.email}
+  //       />
+  //       <Input
+  //         placeholder="Password"
+  //         placeholderColor="#c4c3cb"
+  //         value={password}
+  //         onChangeText={(text) => setPassword(text)}
+  //         secureTextEntry={true}
+  //         autoCapitalize="none"
+  //         autoCorrect={false}
+  //         style={styles.password}
+  //       />
+  //       <Text style={styles.loremIpsum2}></Text>
+  //       <TouchableOpacity onPress={() => authenticate()} style={styles.button}>
+  //         <Text style={styles.logIn}>Log In</Text>
+  //       </TouchableOpacity>
+  //     </View>
+  //   </View>
+  // );
 }
 
 // export default (props) => {
