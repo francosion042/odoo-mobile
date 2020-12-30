@@ -7,8 +7,10 @@ import {
   TouchableWithoutFeedback,
   Alert,
   KeyboardAvoidingView,
+  TouchableOpacity,
 } from "react-native";
 import { Button } from "react-native-elements";
+import LinearGradient from "react-native-linear-gradient";
 import { CommonActions } from "@react-navigation/stack";
 import { OdooConfig } from "../../../constants/configs";
 import styles from "./styles/style";
@@ -111,55 +113,20 @@ export function Login({ navigation }) {
               value={password}
               onChangeText={(text) => setPassword(text)}
             />
-            <Button
-              buttonStyle={styles.loginButton}
-              onPress={() => authenticate()}
-              title="Login"
-            />
-            {/* <Button
-              buttonStyle={styles.fbLoginButton}
-              onPress={() => this.onFbLoginPress()}
-              title="Login with Facebook"
-              color="#3897f1"
-            /> */}
+            <TouchableOpacity onPress={() => authenticate()}>
+              <LinearGradient
+                colors={["#017AFF", "#A1CDF2"]}
+                style={styles.loginButton}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}>
+                <Text style={styles.logInText}>Log In</Text>
+              </LinearGradient>
+            </TouchableOpacity>
           </View>
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
-
-  // return (
-  //   <View style={styles.container}>
-  //     <View style={styles.rect2}>
-  //       <Text style={styles.loremIpsum}>Odoo Mobile App</Text>
-  //     </View>
-  //     <View style={styles.rect}>
-  //       <Input
-  //         placeholder="Email"
-  //         placeholderColor="#c4c3cb"
-  //         value={email}
-  //         onChangeText={(text) => setEmail(text)}
-  //         autoCapitalize="none"
-  //         autoCorrect={false}
-  //         style={styles.email}
-  //       />
-  //       <Input
-  //         placeholder="Password"
-  //         placeholderColor="#c4c3cb"
-  //         value={password}
-  //         onChangeText={(text) => setPassword(text)}
-  //         secureTextEntry={true}
-  //         autoCapitalize="none"
-  //         autoCorrect={false}
-  //         style={styles.password}
-  //       />
-  //       <Text style={styles.loremIpsum2}></Text>
-  //       <TouchableOpacity onPress={() => authenticate()} style={styles.button}>
-  //         <Text style={styles.logIn}>Log In</Text>
-  //       </TouchableOpacity>
-  //     </View>
-  //   </View>
-  // );
 }
 
 // export default (props) => {

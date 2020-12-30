@@ -2,6 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import LinearGradient from "react-native-linear-gradient";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Home, Notifiactions, Profiles } from "../screens";
 import ProjectsTabNavigator from "./projects";
@@ -70,9 +71,14 @@ const HomeStackNavigator = ({ navigation, route }) => {
         component={Home}
         options={() => ({
           headerLeft: null,
-          headerStyle: {
-            backgroundColor: "#7c7bad",
-          },
+          headerBackground: () => (
+            <LinearGradient
+              colors={["#017AFF", "#A1CDF2"]}
+              style={{ flex: 1 }}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+            />
+          ),
           headerTintColor: "#fff",
         })}
       />
@@ -82,9 +88,14 @@ const HomeStackNavigator = ({ navigation, route }) => {
         options={({ route }) => ({
           title: getDiscussHeaderTitle(route),
           headerShown: shouldDiscussHeaderBeShown(route),
-          headerStyle: {
-            backgroundColor: "#7c7bad",
-          },
+          headerBackground: () => (
+            <LinearGradient
+              colors={["#017AFF", "#A1CDF2"]}
+              style={{ flex: 1 }}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+            />
+          ),
           headerTintColor: "#fff",
         })}
       />
@@ -94,9 +105,17 @@ const HomeStackNavigator = ({ navigation, route }) => {
         options={({ route }) => ({
           title: getProjectHeaderTitle(route),
           headerShown: shouldProjectHeaderBeShown(route),
-          headerStyle: {
-            backgroundColor: "#7c7bad",
-          },
+          headerBackground: () => (
+            <LinearGradient
+              colors={["#017AFF", "#A1CDF2"]}
+              style={{ flex: 1 }}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+            />
+          ),
+          // headerStyle: {
+          //   backgroundColor: "#7c7bad",
+          // },
           headerTintColor: "#fff",
         })}
       />
@@ -124,7 +143,7 @@ const HomeTabNavigator = () => {
         },
       })}
       tabBarOptions={{
-        activeTintColor: "#7c7bad",
+        activeTintColor: "#017AFF",
         inactiveTintColor: "gray",
       }}>
       <Tab.Screen name="Home" component={HomeStackNavigator} />

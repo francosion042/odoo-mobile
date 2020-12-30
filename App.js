@@ -11,6 +11,7 @@ import {
   getFocusedRouteNameFromRoute,
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import LinearGradient from "react-native-linear-gradient";
 import BackgroundFetch from "react-native-background-fetch";
 import PushNotification from "react-native-push-notification";
 import he from "he";
@@ -124,9 +125,14 @@ const App = () => {
                 title: getHeaderTitle(route),
                 headerShown: shouldHeaderBeShown(route),
                 headerLeft: null,
-                headerStyle: {
-                  backgroundColor: "#7c7bad",
-                },
+                headerBackground: () => (
+                  <LinearGradient
+                    colors={["#017AFF", "#A1CDF2"]}
+                    style={{ flex: 1 }}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                  />
+                ),
                 headerTintColor: "#fff",
               })}
             />

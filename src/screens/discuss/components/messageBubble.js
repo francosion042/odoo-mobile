@@ -36,7 +36,7 @@ const MessageBubble = (props) => {
         style={[
           styles.cloud,
           {
-            backgroundColor: !props.mine ? "#dddddd" : "#7c7bad",
+            backgroundColor: !props.mine ? "#dddddd" : "#A1CDF2",
           },
         ]}>
         {props.image ? (
@@ -83,14 +83,14 @@ const MessageBubble = (props) => {
           </View>
         )}
         {props.subject ? (
-          <Text style={styles.subject_text}>Subject: {props.subject}</Text>
+          <Text style={styles.subject_text}>{props.subject}</Text>
         ) : null}
         {props.text ? (
           <Text
             style={[
               styles.text,
               {
-                color: !props.mine ? "black" : "white",
+                color: "black",
               },
             ]}>
             {props.text}
@@ -112,7 +112,7 @@ const MessageBubble = (props) => {
           style={[
             styles.date_text,
             {
-              color: !props.mine ? "black" : "white",
+              color: "black",
             },
           ]}>
           {props.date}
@@ -137,7 +137,7 @@ const MessageBubble = (props) => {
                   ? "M38.484,17.5c0,8.75,1,13.5-6,17.5C51.484,35,52.484,17.5,38.484,17.5z"
                   : "M48,35c-7-4-6-8.75-6-17.5C28,17.5,29,35,48,35z"
               }
-              fill={!props.mine ? "#dddddd" : "#7c7bad"}
+              fill={!props.mine ? "#dddddd" : "#A1CDF2"}
               x="0"
               y="0"
             />

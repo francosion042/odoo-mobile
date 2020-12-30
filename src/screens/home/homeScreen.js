@@ -1,5 +1,6 @@
 import React from "react";
-import { View, TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity, Text, Image } from "react-native";
+import LinearGradient from "react-native-linear-gradient";
 import styles from "./styles/homeStyles";
 
 export default function Home({ navigation }) {
@@ -9,16 +10,34 @@ export default function Home({ navigation }) {
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate("Discuss")}>
-          <View style={styles.rect5}></View>
+          <LinearGradient
+            colors={["#017AFF", "#A1CDF2"]}
+            style={styles.rect5}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+          />
           <Text style={styles.discuss}>Discuss</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button2}
           onPress={() => navigation.navigate("Projects")}>
-          <View style={styles.rect6}></View>
+          <LinearGradient
+            colors={["#017AFF", "#A1CDF2"]}
+            style={styles.rect5}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+          />
           <Text style={styles.projects}>Projects</Text>
         </TouchableOpacity>
       </View>
+      {/* <View>
+        <Image
+          source={{
+            uri: "",
+          }}
+          style={styles.image}
+        />
+      </View> */}
     </View>
   );
 }

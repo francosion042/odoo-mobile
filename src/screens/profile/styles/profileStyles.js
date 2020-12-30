@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
   rect: {
     width: 187,
     height: 200,
-    backgroundColor: "#7c7bad",
     borderRadius: 50,
     marginTop: 20,
     alignSelf: "center",
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
     marginLeft: 1,
   },
   icon: {
-    color: "#7c7bad",
+    color: "#017AFF",
     fontSize: 30,
     height: 34,
     width: 25,
@@ -74,7 +73,7 @@ const styles = StyleSheet.create({
     marginLeft: 1,
   },
   icon5: {
-    color: "#7c7bad",
+    color: "#017AFF",
     fontSize: 30,
     height: 34,
     width: 13,
@@ -104,7 +103,7 @@ const styles = StyleSheet.create({
     marginLeft: 1,
   },
   icon3: {
-    color: "#7c7bad",
+    color: "#017AFF",
     fontSize: 30,
     height: 34,
     width: 18,
@@ -134,7 +133,7 @@ const styles = StyleSheet.create({
     marginLeft: 1,
   },
   icon4: {
-    color: "#7c7bad",
+    color: "#017AFF",
     fontSize: 30,
     height: 34,
     width: 22,

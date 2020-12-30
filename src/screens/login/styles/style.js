@@ -33,12 +33,18 @@ export default {
     marginBottom: 5,
   },
   loginButton: {
-    backgroundColor: "#7c7bad",
     borderRadius: 5,
     height: 45,
     marginTop: 10,
     marginLeft: 15,
     marginRight: 15,
+  },
+  logInText: {
+    color: "#121212",
+    textAlign: "center",
+    marginTop: 10,
+    fontSize: 20,
+    fontWeight: "300",
   },
   fbLoginButton: {
     height: 45,

@@ -5,7 +5,7 @@ import styles from "./styles/loadingStyles";
 function LoadingScreen() {
   return (
     <View style={styles.main}>
-      <ActivityIndicator size="large" color="#7c7bad" />
+      <ActivityIndicator size="large" color="#017AFF" />
     </View>
   );
 }

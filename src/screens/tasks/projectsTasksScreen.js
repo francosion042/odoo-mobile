@@ -48,7 +48,7 @@ export default function ProjectTasks({ route, navigation }) {
         }>
         {projectTasks.map((t, i) => (
           <ListItem bottomDivider key={i}>
-            <Ionicons name="ios-list-box" size={40} color="#7c7bad" />
+            <Ionicons name="ios-list-box" size={40} color="#A1CDF2" />
             <ListItem.Content>
               <ListItem.Title>{t.name}</ListItem.Title>
               <ListItem.Subtitle>

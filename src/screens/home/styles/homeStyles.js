@@ -13,9 +13,8 @@ const styles = StyleSheet.create({
   rect5: {
     width: 108,
     height: 77,
-    backgroundColor: "#7c7bad",
     marginTop: 14,
-    marginLeft: 11,
+    marginLeft: 14,
   },
   discuss: {
     // fontFamily: "roboto-regular",
@@ -36,7 +35,6 @@ const styles = StyleSheet.create({
   rect6: {
     width: 108,
     height: 77,
-    backgroundColor: "#7c7bad",
     marginTop: 14,
     marginLeft: 14,
   },

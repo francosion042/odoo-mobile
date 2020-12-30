@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, ScrollView, Image } from "react-native";
+import LinearGradient from "react-native-linear-gradient";
 import { CommonActions } from "@react-navigation/native";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import styles from "./styles/profileStyles";
@@ -30,15 +31,19 @@ function Profiles({ navigation }) {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <View style={styles.rect}>
-          {/* <IoniconsIcon name="ios-person" style={styles.icon2}></IoniconsIcon> */}
+        <LinearGradient
+          colors={["#017AFF", "#A1CDF2"]}
+          style={styles.rect}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}>
           <Image
             source={{
               uri: `data:image/png;base64,${user.more_info[0].image_1920}`,
             }}
             style={styles.image}
           />
-        </View>
+        </LinearGradient>
+
         <View style={styles.rect4}>
           <Text style={styles.profileName}>{user.name}</Text>
           <View style={styles.rect3}>
@@ -71,8 +76,14 @@ function Profiles({ navigation }) {
               </Text>
             </View>
           </View>
-          <TouchableOpacity style={styles.button} onPress={() => logOut()}>
-            <Text style={styles.logOut}>Log Out</Text>
+          <TouchableOpacity onPress={() => logOut()}>
+            <LinearGradient
+              colors={["#017AFF", "#A1CDF2"]}
+              style={styles.button}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}>
+              <Text style={styles.logOut}>Log Out</Text>
+            </LinearGradient>
           </TouchableOpacity>
         </View>
       </ScrollView>

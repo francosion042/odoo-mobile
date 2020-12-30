@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import LinearGradient from "react-native-linear-gradient";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { ChannelsMessages, Channels, DirectMessages, Direct } from "../screens";
 import { OdooConfig } from "../../constants/configs";
@@ -25,9 +26,14 @@ const DirectStackNavigator = ({ navigation, route }) => {
         name="Chats"
         component={Direct}
         options={({ route }) => ({
-          headerStyle: {
-            backgroundColor: "#7c7bad",
-          },
+          headerBackground: () => (
+            <LinearGradient
+              colors={["#017AFF", "#A1CDF2"]}
+              style={{ flex: 1 }}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+            />
+          ),
           headerTintColor: "#fff",
         })}
       />
@@ -36,9 +42,14 @@ const DirectStackNavigator = ({ navigation, route }) => {
         component={DirectMessages}
         options={({ route }) => ({
           title: "Messages",
-          headerStyle: {
-            backgroundColor: "#7c7bad",
-          },
+          headerBackground: () => (
+            <LinearGradient
+              colors={["#017AFF", "#A1CDF2"]}
+              style={{ flex: 1 }}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+            />
+          ),
           headerTintColor: "#fff",
         })}
       />
@@ -59,9 +70,14 @@ const ChannelsStackNavigator = ({ navigation, route }) => {
         name="Channels"
         component={Channels}
         options={({ route }) => ({
-          headerStyle: {
-            backgroundColor: "#7c7bad",
-          },
+          headerBackground: () => (
+            <LinearGradient
+              colors={["#017AFF", "#A1CDF2"]}
+              style={{ flex: 1 }}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+            />
+          ),
           headerTintColor: "#fff",
         })}
       />
@@ -70,9 +86,14 @@ const ChannelsStackNavigator = ({ navigation, route }) => {
         component={ChannelsMessages}
         options={({ route }) => ({
           title: "Messages",
-          headerStyle: {
-            backgroundColor: "#7c7bad",
-          },
+          headerBackground: () => (
+            <LinearGradient
+              colors={["#017AFF", "#A1CDF2"]}
+              style={{ flex: 1 }}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+            />
+          ),
           headerTintColor: "#fff",
         })}
       />
@@ -161,7 +182,7 @@ const DiscussTabNavigator = () => {
         },
       })}
       tabBarOptions={{
-        activeTintColor: "#7c7bad",
+        activeTintColor: "#017AFF",
         inactiveTintColor: "gray",
       }}>
       <Tab.Screen name="Direct" component={DirectStackNavigator} />
