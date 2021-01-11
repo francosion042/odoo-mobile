@@ -12,7 +12,7 @@ import { OdooConfig } from "../../../constants/configs";
 import { AuthContext, DiscussContext } from "../../contexts";
 import { LoadingScreen, ErrorScreen } from "../../commons";
 
-export default function Channels({ navigation }) {
+export default function Channels({ navigation, route }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -63,6 +63,8 @@ export default function Channels({ navigation }) {
   if (isLoading) {
     return <LoadingScreen />;
   }
+
+  console.log(route);
   return (
     <View>
       <ScrollView

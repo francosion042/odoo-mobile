@@ -13,6 +13,8 @@
     "@react-native-community/push-notification-ios": "^1.8.0",
     "@react-navigation/bottom-tabs": "^5.11.2",
     "@react-navigation/core": "^5.14.4",
+    "@react-navigation/drawer": "^5.11.4",
+    "@react-navigation/material-top-tabs": "^5.3.10",
     "@react-navigation/native": "^5.8.10",
     "@react-navigation/stack": "^5.12.8",
     "expo": "~39.0.2",
@@ -35,6 +37,7 @@
     "react-native-screens": "~2.10.1",
     "react-native-size-matters": "^0.3.1",
     "react-native-svg": "^12.1.0",
+    "react-native-tab-view": "^2.15.2",
     "react-native-unimodules": "~0.11.0",
     "react-native-vector-icons": "^7.1.0",
     "react-native-web": "~0.13.12"

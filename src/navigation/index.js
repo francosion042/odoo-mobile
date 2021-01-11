@@ -1,3 +1,3 @@
-import HomeTabNavigator from "./home";
+import HomeStackNavigator from "./home";
 
-export { HomeTabNavigator };
+export { HomeStackNavigator };

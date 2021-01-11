@@ -102,6 +102,8 @@ export default function DirectMessages({ route, navigation }) {
       });
   };
 
+  console.log(route);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>

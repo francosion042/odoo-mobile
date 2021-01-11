@@ -11,12 +11,14 @@ import {
   getFocusedRouteNameFromRoute,
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import LinearGradient from "react-native-linear-gradient";
 import BackgroundFetch from "react-native-background-fetch";
 import PushNotification from "react-native-push-notification";
 import he from "he";
-import { Login } from "./src/screens";
-import { HomeTabNavigator } from "./src/navigation";
+import { Login, Profiles } from "./src/screens";
+import { HomeStackNavigator } from "./src/navigation";
 import {
   AuthContextProvider,
   AuthContext,
@@ -30,6 +32,8 @@ import { LoadingScreen } from "./src/commons";
 import { OdooConfig } from "./constants/configs";
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+const MaterialTopTabs = createMaterialTopTabNavigator();
 
 // Get header title from each screen in the hometab,
 const getHeaderTitle = (route) => {
@@ -47,9 +51,13 @@ const getHeaderTitle = (route) => {
 
 const shouldHeaderBeShown = (route) => {
   const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
-
+  console.log(routeName);
   switch (routeName) {
     case "Home":
+      return true;
+    case "DirectMessages":
+      return false;
+    case "ChannelsMessages":
       return false;
   }
 };
@@ -117,14 +125,15 @@ const App = () => {
         </>
       ) : (
         <>
-          <Stack.Navigator>
-            <Stack.Screen
+          <Drawer.Navigator>
+            <Drawer.Screen
               name="Home"
-              component={HomeTabNavigator}
+              children={HomeStackNavigator}
               options={({ route }) => ({
-                title: getHeaderTitle(route),
                 headerShown: shouldHeaderBeShown(route),
-                headerLeft: null,
+                // headerStyle: {
+                //   backgroundColor: "#017AFF",
+                // },
                 headerBackground: () => (
                   <LinearGradient
                     colors={["#017AFF", "#A1CDF2"]}
@@ -133,10 +142,28 @@ const App = () => {
                     end={{ x: 1, y: 0 }}
                   />
                 ),
-                headerTintColor: "#fff",
+
+                // headerTintColor: "#fff",
               })}
             />
-          </Stack.Navigator>
+            {/* <Drawer.Screen name="Calendar" /> */}
+            <Drawer.Screen
+              name="Profile"
+              component={Profiles}
+              options={({ route }) => ({
+                headerShown: true,
+                headerBackground: () => (
+                  <LinearGradient
+                    colors={["#017AFF", "#A1CDF2"]}
+                    style={{ flex: 1 }}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                  />
+                ),
+                // headerTintColor: "#fff",
+              })}
+            />
+          </Drawer.Navigator>
           <StatusBar style="light" />
         </>
       )}

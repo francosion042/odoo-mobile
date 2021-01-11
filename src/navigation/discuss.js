@@ -26,6 +26,7 @@ const DirectStackNavigator = ({ navigation, route }) => {
         name="Chats"
         component={Direct}
         options={({ route }) => ({
+          headerShown: false,
           headerBackground: () => (
             <LinearGradient
               colors={["#017AFF", "#A1CDF2"]}
@@ -70,6 +71,7 @@ const ChannelsStackNavigator = ({ navigation, route }) => {
         name="Channels"
         component={Channels}
         options={({ route }) => ({
+          headerShown: false,
           headerBackground: () => (
             <LinearGradient
               colors={["#017AFF", "#A1CDF2"]}

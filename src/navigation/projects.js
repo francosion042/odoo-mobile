@@ -25,6 +25,7 @@ const ProjectsStackNavigator = ({ navigation, route }) => {
         name="Projects"
         component={Projects}
         options={({ route }) => ({
+          headerShown: false,
           headerBackground: () => (
             <LinearGradient
               colors={["#017AFF", "#A1CDF2"]}
