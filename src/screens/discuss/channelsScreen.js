@@ -93,9 +93,6 @@ export default function Channels({ navigation }) {
               />
               <ListItem.Content>
                 <ListItem.Title>{c.name}</ListItem.Title>
-                <ListItem.Subtitle>
-                  Num of Messages: {c.channel_message_ids.length}
-                </ListItem.Subtitle>
               </ListItem.Content>
               <ListItem.Chevron />
             </ListItem>

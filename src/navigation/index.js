@@ -1,3 +1,5 @@
 import HomeStackNavigator from "./home";
+import ProfileStackNavigator from "./profile";
+import CalendarStackNavigator from "./calendar";
 
-export { HomeStackNavigator };
+export { HomeStackNavigator, ProfileStackNavigator, CalendarStackNavigator };

@@ -96,14 +96,6 @@ export default function Notifications() {
     );
   }
 
-  // if (networkError) {
-  //   return (
-  //     <View>
-  //       <Text>No Network Connection</Text>
-  //     </View>
-  //   );
-  // }
-
   return (
     <View>
       <ScrollView

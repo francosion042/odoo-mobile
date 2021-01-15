@@ -97,9 +97,6 @@ export default function Channels({ navigation, route }) {
               />
               <ListItem.Content>
                 <ListItem.Title>{splitNames(c.name, user.name)}</ListItem.Title>
-                <ListItem.Subtitle>
-                  Num of Messages: {c.channel_message_ids.length}
-                </ListItem.Subtitle>
               </ListItem.Content>
               <ListItem.Chevron />
             </ListItem>

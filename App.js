@@ -1,10 +1,4 @@
-import React, {
-  useContext,
-  useState,
-  useEffect,
-  useRef,
-  Component,
-} from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   NavigationContainer,
@@ -13,12 +7,17 @@ import {
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import Icon from "react-native-vector-icons/FontAwesome";
 import LinearGradient from "react-native-linear-gradient";
 import BackgroundFetch from "react-native-background-fetch";
 import PushNotification from "react-native-push-notification";
 import he from "he";
 import { Login, Profiles } from "./src/screens";
-import { HomeStackNavigator } from "./src/navigation";
+import {
+  HomeStackNavigator,
+  ProfileStackNavigator,
+  CalendarStackNavigator,
+} from "./src/navigation";
 import {
   AuthContextProvider,
   AuthContext,
@@ -33,7 +32,6 @@ import { OdooConfig } from "./constants/configs";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
-const MaterialTopTabs = createMaterialTopTabNavigator();
 
 // Get header title from each screen in the hometab,
 const getHeaderTitle = (route) => {
@@ -61,14 +59,6 @@ const shouldHeaderBeShown = (route) => {
       return false;
   }
 };
-
-////////////////////////////
-// the body of each message is a string of HTML element, so it needs to be etracted and decoded
-const extractHTML = (html) => {
-  const decodedStripedHtml = he.decode(html.replace(/<[^>]+>/g, ""));
-  return decodedStripedHtml;
-};
-/////////////////////////////
 
 const App = () => {
   const { user } = useContext(AuthContext);
@@ -129,39 +119,41 @@ const App = () => {
             <Drawer.Screen
               name="Home"
               children={HomeStackNavigator}
-              options={({ route }) => ({
-                headerShown: shouldHeaderBeShown(route),
-                // headerStyle: {
-                //   backgroundColor: "#017AFF",
-                // },
-                headerBackground: () => (
-                  <LinearGradient
-                    colors={["#017AFF", "#A1CDF2"]}
-                    style={{ flex: 1 }}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 0 }}
+              options={{
+                drawerIcon: ({ focused, size }) => (
+                  <Icon
+                    name="home"
+                    size={size}
+                    color={focused ? "#017AFF" : "gray"}
                   />
                 ),
-
-                // headerTintColor: "#fff",
-              })}
+              }}
             />
-            {/* <Drawer.Screen name="Calendar" /> */}
+            <Drawer.Screen
+              name="Calendar"
+              children={CalendarStackNavigator}
+              options={{
+                drawerIcon: ({ focused, size }) => (
+                  <Icon
+                    name="calendar"
+                    size={size}
+                    color={focused ? "#017AFF" : "gray"}
+                  />
+                ),
+              }}
+            />
             <Drawer.Screen
               name="Profile"
-              component={Profiles}
-              options={({ route }) => ({
-                headerShown: true,
-                headerBackground: () => (
-                  <LinearGradient
-                    colors={["#017AFF", "#A1CDF2"]}
-                    style={{ flex: 1 }}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 0 }}
+              children={ProfileStackNavigator}
+              options={{
+                drawerIcon: ({ focused, size }) => (
+                  <Icon
+                    name="user"
+                    size={size}
+                    color={focused ? "#017AFF" : "gray"}
                   />
                 ),
-                // headerTintColor: "#fff",
-              })}
+              }}
             />
           </Drawer.Navigator>
           <StatusBar style="light" />

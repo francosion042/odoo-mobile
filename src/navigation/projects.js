@@ -41,6 +41,7 @@ const ProjectsStackNavigator = ({ navigation, route }) => {
         name="projectTasks"
         component={ProjectTasks}
         options={({ route }) => ({
+          headerShown: false,
           title: "Tasks",
           headerBackground: () => (
             <LinearGradient

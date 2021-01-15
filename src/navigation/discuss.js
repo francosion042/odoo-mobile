@@ -42,6 +42,7 @@ const DirectStackNavigator = ({ navigation, route }) => {
         name="DirectMessages"
         component={DirectMessages}
         options={({ route }) => ({
+          headerShown: false,
           title: "Messages",
           headerBackground: () => (
             <LinearGradient
@@ -87,6 +88,7 @@ const ChannelsStackNavigator = ({ navigation, route }) => {
         name="ChannelsMessages"
         component={ChannelsMessages}
         options={({ route }) => ({
+          headerShown: false,
           title: "Messages",
           headerBackground: () => (
             <LinearGradient
