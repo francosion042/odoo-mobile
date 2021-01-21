@@ -2,10 +2,10 @@ import React, { useState, useContext, useEffect } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Agenda } from "react-native-calendars";
 import { Card } from "react-native-paper";
+import { useIsFocused } from "@react-navigation/native";
 import styles from "./styles/style";
-import { AuthContext } from "../../contexts";
+import { CalendarContext } from "../../contexts";
 import { LoadingScreen } from "../../commons";
-import { OdooConfig } from "../../../constants/configs";
 
 const timeToString = (time) => {
   const date = new Date(time);
@@ -13,101 +13,91 @@ const timeToString = (time) => {
 };
 
 const Calendar = () => {
-  const { user } = useContext(AuthContext);
+  const isFocused = useIsFocused();
   const [items, setItems] = useState({});
-  const [events, setEvents] = useState([]);
+  const { events } = useContext(CalendarContext);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const Odoo = new OdooConfig(user.email, user.password);
-    Odoo.odoo
-      .connect()
-      .then(async (response) => {
-        console.log(response.success);
-        console.log(user.email, "||", user.password);
-        if (response.success) {
-          const params = {
-            // domain: [["message_type", "=", "notification"]],
-            fields: [
-              "id",
-              "name",
-              "start",
-              "stop",
-              "duration",
-              "allday",
-              "location",
-              "description",
-            ],
-            // order: "date DESC",
-          };
-
-          await Odoo.odoo
-            .search_read("calendar.event", params)
-            .then((response) => {
-              if (response.data) {
-                setEvents(data);
-                setIsLoading(false);
-              }
-            })
-            .catch((e) => {
-              console.log(e);
-            });
-        } else {
-          setIsLoading(false);
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
+  console.log("events.......", events);
 
   const loadItems = (day) => {
-    setTimeout(() => {
-      for (let i = -15; i < 85; i++) {
-        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-        const strTime = timeToString(time);
-        if (!items[strTime]) {
-          items[strTime] = [];
-          // const numItems = Math.floor(Math.random() * 3 + 1);
-          // for (let j = 0; j < numItems; j++) {
-          //   items[strTime].push({
-          //     name: "Item for " + strTime + " #" + j,
-          //     height: Math.max(50, Math.floor(Math.random() * 150)),
-          //   });
-          // }
-        }
+    for (let i = -15; i < 85; i++) {
+      const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+      const strTime = timeToString(time);
+      if (!items[strTime]) {
+        items[strTime] = [];
       }
-      const newItems = {};
+    }
+    //////////////////////////////
+    const newItems = {};
+    Object.keys(items).forEach((key) => {
+      newItems[key] = items[key];
+    });
+    setItems(newItems);
+    /////////////////////////////
+    for (let e = 0; e < events.length; e++) {
+      //start//////
+      const start = events[e].start.split(" ");
+      const startDate = start[0];
+      const startTime = start[1];
+      //////Stop///////
+      const stop = events[e].stop.split(" ");
+      const stopDate = stop[0];
+      const stopTime = stop[1];
+
       Object.keys(items).forEach((key) => {
-        newItems[key] = items[key];
+        if (startDate === key) {
+          if (
+            items[key].length !== 0 &&
+            items[key].every((event) => event.id !== events[e].id)
+          ) {
+            console.log(events[e]);
+            items[key].push({
+              id: events[e].id,
+              name: events[e].name,
+              time: `${startTime} - ${stopTime}`,
+              description: events[e].description,
+              location: events[e].location,
+            });
+          } else if (items[key].length === 0) {
+            items[key].push({
+              id: events[e].id,
+              name: events[e].name,
+              time: `${startTime} - ${stopTime}`,
+              description: events[e].description,
+              location: events[e].location,
+            });
+          }
+
+          // console.log(items);
+        }
       });
-      setItems(newItems);
-    }, 1000);
+    }
   };
 
   const renderItem = (item) => {
+    console.log("item ........" + item);
     return (
-      <TouchableOpacity style={[styles.item, { height: item.height }]}>
+      <TouchableOpacity style={styles.item}>
         <Card>
           <Card.Content>
             <View>
-              <Text>{item.name}</Text>
+              <Text style={styles.itemName}>{item.name}</Text>
+              <Text>Time:- {item.time}</Text>
+              <Text>Location:- {item.location}</Text>
             </View>
           </Card.Content>
         </Card>
+        {item.description ? (
+          <Card>
+            <Card.Content>
+              <Text>{item.description}</Text>
+            </Card.Content>
+          </Card>
+        ) : null}
       </TouchableOpacity>
     );
   };
-
-  const renderEmptyDate = () => {
-    return (
-      <View style={styles.emptyDate}>
-        <Text>This is empty date!</Text>
-      </View>
-    );
-  };
-
-  console.log(items);
 
   const getToday = () => {
     let today = new Date();
@@ -117,29 +107,18 @@ const Calendar = () => {
 
     return (today = `${yyyy}-${mm}-${dd}`);
   };
-
+  // console.log(items);
+  // setIsLoading(false);
+  // if (isLoading) {
+  //   return <LoadingScreen />;
+  // }
   return (
     <View style={{ flex: 1 }}>
       <Agenda
         items={items}
-        loadItemsForMonth={loadItems}
+        loadItemsForMonth={isFocused ? loadItems : null}
         selected={getToday}
         renderItem={renderItem}
-        // renderEmptyDate={renderEmptyDate}
-        // markingType={'period'}
-        // markedDates={{
-        //    '2017-05-08': {textColor: '#43515c'},
-        //    '2017-05-09': {textColor: '#43515c'},
-        //    '2017-05-14': {startingDay: true, endingDay: true, color: 'blue'},
-        //    '2017-05-21': {startingDay: true, color: 'blue'},
-        //    '2017-05-22': {endingDay: true, color: 'gray'},
-        //    '2017-05-24': {startingDay: true, color: 'gray'},
-        //    '2017-05-25': {color: 'gray'},
-        //    '2017-05-26': {endingDay: true, color: 'gray'}}}
-        // monthFormat={'yyyy'}
-        // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
-        //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
-        // hideExtraDays={false}
       />
     </View>
   );

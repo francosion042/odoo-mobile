@@ -5836,7 +5836,7 @@ mkdirp@^0.5.1:
   dependencies:
     minimist "^1.2.5"
 
-moment@^2.24.0:
+moment@^2.24.0, moment@^2.29.1:
   version "2.29.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
   integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
@@ -6570,6 +6570,11 @@ react-native-calendars@^1.1129.0:
     prop-types "^15.5.10"
     react-native-swipe-gestures "^1.0.5"
     xdate "^0.8.0"
+
+react-native-date-picker@^3.2.8:
+  version "3.2.8"
+  resolved "https://registry.yarnpkg.com/react-native-date-picker/-/react-native-date-picker-3.2.8.tgz#91501514f7c25b8251ae805561e2e303398f0729"
+  integrity sha512-tgBkhzOK32ZAIO+vDPL2cU55mMnsqdO+LZG62YBbN5rbs2D2vIeBGjAer5RFCrLB55oIStWwLiRtFYfApqjhpg==
 
 react-native-elements@^3.0.0-alpha.1:
   version "3.0.0-alpha.1"

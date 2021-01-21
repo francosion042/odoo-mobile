@@ -9,6 +9,10 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginTop: 17,
   },
+  itemName: {
+    fontWeight: "bold",
+    fontSize: 18,
+  },
   emptyDate: {
     height: 15,
     flex: 1,

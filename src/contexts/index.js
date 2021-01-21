@@ -1,5 +1,6 @@
 import { AuthContextProvider, AuthContext } from "./authContext";
 import { ProjectsContextProvider, ProjectsContext } from "./projectsContext";
+import { CalendarContextProvider, CalendarContext } from "./calendarContext";
 import { TasksContextProvider, TasksContext } from "./tasksContext";
 import { DiscussContextProvider, DiscussContext } from "./discussContext";
 import {
@@ -18,4 +19,6 @@ export {
   DiscussContext,
   NotificationsContextProvider,
   NotificationsContext,
+  CalendarContextProvider,
+  CalendarContext,
 };

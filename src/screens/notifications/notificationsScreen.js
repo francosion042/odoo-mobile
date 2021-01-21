@@ -76,7 +76,6 @@ export default function Notifications() {
         } else {
           setIsLoading(false);
           setIsRefreshing(false);
-          setNetworkError(true);
         }
       })
       .catch((e) => {

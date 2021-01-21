@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -9,11 +9,66 @@ import { Home, Notifiactions, Profiles } from "../screens";
 import ProjectsTabNavigator from "./projects";
 import DiscussTabNavigator from "./discuss";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { OdooConfig } from "../../constants/configs";
+import { AuthContext, CalendarContext } from "../contexts";
 
 const MaterialTopTabs = createMaterialTopTabNavigator();
 const HomeStack = createStackNavigator();
 
 const HomeStackNavigator = ({ navigation, route }) => {
+  const { user } = useContext(AuthContext);
+  const { addEvents } = useContext(CalendarContext);
+
+  /////////////////////////////////////////////////Calendar Events Fetch//////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    setTimeout(() => {
+      const Odoo = new OdooConfig(user.email, user.password);
+      Odoo.odoo
+        .connect()
+        .then(async (response) => {
+          console.log(response.success);
+          console.log(user.email, "||", user.password);
+          if (response.success) {
+            const params = {
+              // domain: [["message_type", "=", "notification"]],
+              fields: [
+                "id",
+                "name",
+                "start",
+                "stop",
+                "duration",
+                "allday",
+                "location",
+                "description",
+              ],
+              // order: "date DESC",
+            };
+
+            await Odoo.odoo
+              .search_read("calendar.event", params)
+              .then((response) => {
+                if (response.data) {
+                  addEvents(response.data);
+                  console.log(response.data);
+                }
+              })
+              .catch((e) => {
+                console.log(e);
+              });
+          } else {
+            setIsLoading(false);
+            alert("network connection problem");
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }, 3000);
+  }, []);
+
+  //////////////////////////////////////////////////////////////////////////////////////
+
   return (
     <HomeStack.Navigator>
       <HomeStack.Screen

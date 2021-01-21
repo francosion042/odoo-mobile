@@ -7,11 +7,15 @@ const AuthContextProvider = (props) => {
   const [user, setUser] = useState(false);
 
   if (!user) {
-    AsyncStorage.getItem("user").then((data) => {
-      const jsonData = data != null ? JSON.parse(data) : false;
+    AsyncStorage.getItem("user")
+      .then((data) => {
+        const jsonData = data != null ? JSON.parse(data) : false;
 
-      setUser(jsonData);
-    });
+        setUser(jsonData);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   ////////////////////////////////////////////////////////////////

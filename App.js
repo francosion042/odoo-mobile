@@ -26,6 +26,8 @@ import {
   DiscussContextProvider,
   NotificationsContextProvider,
   NotificationsContext,
+  CalendarContextProvider,
+  CalendarContext,
 } from "./src/contexts";
 import { LoadingScreen } from "./src/commons";
 import { OdooConfig } from "./constants/configs";
@@ -62,30 +64,9 @@ const shouldHeaderBeShown = (route) => {
 
 const App = () => {
   const { user } = useContext(AuthContext);
-  const { newNotifications, addNotifications } = useContext(
-    NotificationsContext
-  );
+  const { addEvents } = useContext(CalendarContext);
   const [isLoading, setIsLoading] = useState(true);
   const [notification, setNotification] = useState(false);
-
-  /////////////////////////////////////////////////Background Fetch//////////////////////////////////////////////////////////
-
-  //////////////////////////////////////////////////////////////////////////////////////
-
-  ///////////////////////////////////Push Notification///////////////////////////////////////////
-  const sendPushNotification = (title, message) => {
-    PushNotification.localNotification({
-      /* Android Only Properties */
-
-      actions: ["Open", "Cancel"], // (Android only) See the doc for notification actions to know more
-      invokeApp: true, // (optional) This enable click on actions to bring back the application to foreground or stay in background, default: true
-
-      title: title, // (optional)
-      message: message, // (required)
-    });
-  };
-  // sendPushNotification();
-  ///////////////////////////////////////////////////////////////////////////////////////////////
 
   useEffect(() => {
     setTimeout(() => {
@@ -170,7 +151,9 @@ export default (props) => {
         <TasksContextProvider>
           <DiscussContextProvider>
             <NotificationsContextProvider>
-              <App navigation={props.navigation} />
+              <CalendarContextProvider>
+                <App navigation={props.navigation} />
+              </CalendarContextProvider>
             </NotificationsContextProvider>
           </DiscussContextProvider>
         </TasksContextProvider>
