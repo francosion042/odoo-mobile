@@ -5,6 +5,7 @@ import {
   ScrollView,
   RefreshControl,
   Image,
+  Alert,
 } from "react-native";
 import { ListItem } from "react-native-elements";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -51,6 +52,10 @@ export default function Channels({ navigation }) {
         } else {
           setIsLoading(false);
           setIsRefreshing(false);
+          Alert.alert(
+            "Network Connection failure",
+            "Check your internet connection and try again"
+          );
         }
       })
       .catch((e) => {

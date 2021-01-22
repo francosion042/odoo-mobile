@@ -1,8 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, RefreshControl } from "react-native";
 import { Agenda } from "react-native-calendars";
 import { Card } from "react-native-paper";
-import { useIsFocused } from "@react-navigation/native";
 import styles from "./styles/style";
 import { CalendarContext } from "../../contexts";
 import { LoadingScreen } from "../../commons";
@@ -12,15 +11,13 @@ const timeToString = (time) => {
   return date.toISOString().split("T")[0];
 };
 
-const Calendar = () => {
-  const isFocused = useIsFocused();
+const Calendar = ({ route, navigation }) => {
   const [items, setItems] = useState({});
   const { events } = useContext(CalendarContext);
   const [isLoading, setIsLoading] = useState(true);
 
-  console.log("events.......", events);
-
   const loadItems = (day) => {
+    console.log(day);
     for (let i = -15; i < 85; i++) {
       const time = day.timestamp + i * 24 * 60 * 60 * 1000;
       const strTime = timeToString(time);
@@ -47,6 +44,7 @@ const Calendar = () => {
 
       Object.keys(items).forEach((key) => {
         if (startDate === key) {
+          //check if item already exists to avoid duplication when rerendering
           if (
             items[key].length !== 0 &&
             items[key].every((event) => event.id !== events[e].id)
@@ -75,10 +73,16 @@ const Calendar = () => {
     }
   };
 
+  useEffect(() => {
+    console.log("params.......", route.params);
+    if (route.params) {
+      loadItems(route.params);
+    }
+  }, []);
+
   const renderItem = (item) => {
-    console.log("item ........" + item);
     return (
-      <TouchableOpacity style={styles.item}>
+      <View style={styles.item}>
         <Card>
           <Card.Content>
             <View>
@@ -95,7 +99,7 @@ const Calendar = () => {
             </Card.Content>
           </Card>
         ) : null}
-      </TouchableOpacity>
+      </View>
     );
   };
 
@@ -107,20 +111,28 @@ const Calendar = () => {
 
     return (today = `${yyyy}-${mm}-${dd}`);
   };
-  // console.log(items);
-  // setIsLoading(false);
-  // if (isLoading) {
-  //   return <LoadingScreen />;
-  // }
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
   return (
-    <View style={{ flex: 1 }}>
-      <Agenda
-        items={items}
-        loadItemsForMonth={isFocused ? loadItems : null}
-        selected={getToday}
-        renderItem={renderItem}
-      />
-    </View>
+    // <View>
+    //   <Text>Hello</Text>
+    // </View>
+    <Agenda
+      items={items}
+      loadItemsForMonth={loadItems}
+      selected={getToday}
+      renderItem={renderItem}
+      pastScrollRange={6}
+      futureScrollRange={6}
+    />
   );
 };
 

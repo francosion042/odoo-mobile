@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  Alert,
 } from "react-native";
 
 import he from "he";
@@ -93,6 +94,10 @@ export default function ChannelsMessages({ route, navigation }) {
           ///////////////////////////////////////////////////
         } else {
           setIsLoading(false);
+          Alert.alert(
+            "Network Connection failure",
+            "Check your internet connection and try again"
+          );
         }
       })
       .catch((e) => {

@@ -7,6 +7,7 @@ import { Projects, ProjectTasks, MyTasks } from "../screens";
 import { OdooConfig } from "../../constants/configs";
 import { AuthContext, TasksContext } from "../contexts";
 import { LoadingScreen } from "../commons";
+import { Alert } from "react-native";
 
 const ProjectsStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -97,6 +98,10 @@ const ProjectsTabNavigator = () => {
           ///////////////////////////////////////////////////
         } else {
           setIsLoading(false);
+          Alert.alert(
+            "Network Connection failure",
+            "Check your internet connection and try again"
+          );
         }
       })
       .catch((e) => {

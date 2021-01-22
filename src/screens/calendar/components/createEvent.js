@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Modal,
   ScrollView,
+  Alert,
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -35,7 +36,10 @@ const CreateEvent = ({ navigation, route }) => {
   const startDateStr = start.toString();
 
   const stopDateStr = stop.toString();
-  console.log(start);
+
+  const timeStamp = startDate.getTime();
+
+  console.log(timeStamp);
 
   const createEvent = async () => {
     const Odoo = new OdooConfig(user.email, user.password);
@@ -87,7 +91,13 @@ const CreateEvent = ({ navigation, route }) => {
                           if (response.data) {
                             addEvents(response.data);
                             console.log(response.data);
-                            navigation.navigate("Calendar");
+                            Alert.alert(
+                              "Event Created",
+                              "Pull down the calendar click on the date to refresh"
+                            );
+                            navigation.navigate("Calendar", {
+                              timestamp: timeStamp,
+                            });
                           }
                         })
                         .catch((e) => {
@@ -108,6 +118,10 @@ const CreateEvent = ({ navigation, route }) => {
             });
           ///////////////////////////////////////////////////
         } else {
+          Alert.alert(
+            "Network Connection failure",
+            "Check your internet connection and try again"
+          );
         }
       })
       .catch((e) => {
@@ -185,16 +199,6 @@ const CreateEvent = ({ navigation, route }) => {
               ]}
             />
           </View>
-          {/* <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Meeting Duration</Text>
-            <TextInput
-              placeholder="Hours"
-              placeholderColor="#c4c3cb"
-              value={duration}
-              onChangeText={(text) => setDuration(text)}
-              style={styles.FormTextInput}
-            />
-          </View> */}
 
           <View style={styles.inputContainer}>
             <Text style={styles.inputLabel}>Meeting Location</Text>

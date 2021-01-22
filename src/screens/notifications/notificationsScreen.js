@@ -1,5 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
-import { View, Text, ScrollView, Image, RefreshControl } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  RefreshControl,
+  Alert,
+} from "react-native";
 import { ListItem } from "react-native-elements";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import he from "he";
@@ -14,7 +21,6 @@ export default function Notifications() {
   const { addNotifications, notifications } = useContext(NotificationsContext);
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [networkError, setNetworkError] = useState(false);
 
   ////////////////////////////
   // the body of each message is a string of HTML element, so it needs to be etracted and decoded
@@ -23,6 +29,15 @@ export default function Notifications() {
     return decodedStripedHtml;
   };
   /////////////////////////////
+
+  useEffect(() => {
+    setTimeout(() => {
+      Alert.alert(
+        "Tips",
+        "Dear user, to refresh the notifications, scroll to the top, then swipe down"
+      );
+    }, 5000);
+  }, []);
 
   useEffect(() => {
     const Odoo = new OdooConfig(user.email, user.password);
@@ -59,14 +74,6 @@ export default function Notifications() {
                 addNotifications(notes);
                 setIsRefreshing(false);
                 setIsLoading(false);
-
-                // console.log("New Notification ......", newNotifications);
-                // //check if there's any new notification, then send the push notification if there is
-                // if (newNotifications) {
-                //   newNotifications.map((n) => {
-                //     // sendPushNotification(n.subject, n.body);
-                //   });
-                // }
               }
             })
             .catch((e) => {
@@ -76,6 +83,10 @@ export default function Notifications() {
         } else {
           setIsLoading(false);
           setIsRefreshing(false);
+          Alert.alert(
+            "Network Connection failure",
+            "Check your internet connection and try again"
+          );
         }
       })
       .catch((e) => {
@@ -83,9 +94,9 @@ export default function Notifications() {
       });
   }, [isRefreshing]);
 
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
+  // if (isLoading) {
+  //   return <LoadingScreen />;
+  // }
 
   if (!notifications) {
     return (

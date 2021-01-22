@@ -1,7 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Alert } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import LinearGradient from "react-native-linear-gradient";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -58,7 +57,10 @@ const HomeStackNavigator = ({ navigation, route }) => {
               });
           } else {
             setIsLoading(false);
-            alert("network connection problem");
+            Alert.alert(
+              "Network Connection failure",
+              "Check your internet connection and try again"
+            );
           }
         })
         .catch((e) => {

@@ -1,17 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
+import { Alert } from "react-native";
 import {
   NavigationContainer,
   getFocusedRouteNameFromRoute,
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Icon from "react-native-vector-icons/FontAwesome";
-import LinearGradient from "react-native-linear-gradient";
-import BackgroundFetch from "react-native-background-fetch";
-import PushNotification from "react-native-push-notification";
-import he from "he";
 import { Login, Profiles } from "./src/screens";
 import {
   HomeStackNavigator,
@@ -30,47 +26,22 @@ import {
   CalendarContext,
 } from "./src/contexts";
 import { LoadingScreen } from "./src/commons";
-import { OdooConfig } from "./constants/configs";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-// Get header title from each screen in the hometab,
-const getHeaderTitle = (route) => {
-  const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
-
-  switch (routeName) {
-    case "Home":
-      return "Home";
-    case "Notifications":
-      return "Notifications";
-    case "Profile":
-      return "Profile";
-  }
-};
-
-const shouldHeaderBeShown = (route) => {
-  const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
-  console.log(routeName);
-  switch (routeName) {
-    case "Home":
-      return true;
-    case "DirectMessages":
-      return false;
-    case "ChannelsMessages":
-      return false;
-  }
-};
-
 const App = () => {
   const { user } = useContext(AuthContext);
-  const { addEvents } = useContext(CalendarContext);
+
   const [isLoading, setIsLoading] = useState(true);
-  const [notification, setNotification] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
+      Alert.alert(
+        "Tips",
+        "Dear user, for a better user experience, it is recommended you have a strong internet connection. Abeg"
+      );
     }, 1000);
   }, []);
 
@@ -132,6 +103,7 @@ const App = () => {
                     name="user"
                     size={size}
                     color={focused ? "#017AFF" : "gray"}
+                    style={{ paddingRight: 5 }}
                   />
                 ),
               }}
