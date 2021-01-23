@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Alert } from "react-native";
+import SplashScreen from "react-native-splash-screen";
 import {
   NavigationContainer,
   getFocusedRouteNameFromRoute,
@@ -37,12 +38,17 @@ const App = () => {
 
   useEffect(() => {
     setTimeout(() => {
+      SplashScreen.hide();
+    }, 500);
+    setTimeout(() => {
       setIsLoading(false);
+    }, 1000);
+    setTimeout(() => {
       Alert.alert(
         "Tips",
-        "Dear user, for a better user experience, it is recommended you have a strong internet connection. Abeg"
+        "Dear user, for a better user experience, it is recommended you have a strong internet connection."
       );
-    }, 1000);
+    }, 5000);
   }, []);
 
   if (isLoading) {

@@ -156,19 +156,6 @@ const DiscussTabNavigator = () => {
       });
   }, []);
 
-  const shouldChannelsHeaderBeShown = (route) => {
-    const routeName = getFocusedRouteNameFromRoute(route) ?? "Channels";
-
-    switch (routeName) {
-      case "Channels":
-        return false;
-    }
-  };
-
-  // if (isLoading) {
-  //   return <LoadingScreen />;
-  // }
-
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({

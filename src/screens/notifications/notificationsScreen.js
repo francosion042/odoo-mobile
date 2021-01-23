@@ -20,6 +20,7 @@ export default function Notifications() {
   // const [notifications, addNotifications] = useState("");
   const { addNotifications, notifications } = useContext(NotificationsContext);
   const [isLoading, setIsLoading] = useState(true);
+
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   ////////////////////////////
@@ -30,16 +31,19 @@ export default function Notifications() {
   };
   /////////////////////////////
 
-  useEffect(() => {
-    setTimeout(() => {
-      Alert.alert(
-        "Tips",
-        "Dear user, to refresh the notifications, scroll to the top, then swipe down"
-      );
-    }, 5000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     Alert.alert(
+  //       "Tips",
+  //       "Dear user, to refresh the notifications, scroll to the top, then swipe down"
+  //     );
+  //   }, 5000);
+  // }, []);
 
   useEffect(() => {
+    if (notifications) {
+      setIsLoading(false);
+    }
     const Odoo = new OdooConfig(user.email, user.password);
     Odoo.odoo
       .connect()
@@ -94,9 +98,9 @@ export default function Notifications() {
       });
   }, [isRefreshing]);
 
-  // if (isLoading) {
-  //   return <LoadingScreen />;
-  // }
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   if (!notifications) {
     return (

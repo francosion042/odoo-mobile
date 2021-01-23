@@ -7,6 +7,7 @@ import {
   Modal,
   ScrollView,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -21,6 +22,7 @@ const CreateEvent = ({ navigation, route }) => {
   const { events, addEvents } = useContext(CalendarContext);
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [isBusy, setIsBusy] = useState(false);
   ////////////////////////
   const [subject, setSubject] = useState("");
   const [startDate, setStartDate] = useState(new Date());
@@ -29,8 +31,6 @@ const CreateEvent = ({ navigation, route }) => {
   const start = moment(startDate).format("YYYY-MM-DD HH:mm:ss");
   const stop = moment(stopDate).format("YYYY-MM-DD HH:mm:ss");
   const [description, setDescription] = useState("");
-  const [duration, setDuration] = useState("");
-  const [allday, setAllday] = useState("");
   const [location, setLocation] = useState("");
 
   const startDateStr = start.toString();
@@ -42,6 +42,7 @@ const CreateEvent = ({ navigation, route }) => {
   console.log(timeStamp);
 
   const createEvent = async () => {
+    setIsBusy(true);
     const Odoo = new OdooConfig(user.email, user.password);
 
     await Odoo.odoo
@@ -90,7 +91,7 @@ const CreateEvent = ({ navigation, route }) => {
                         .then((response) => {
                           if (response.data) {
                             addEvents(response.data);
-                            console.log(response.data);
+                            setIsBusy(false);
                             Alert.alert(
                               "Event Created",
                               "Pull down the calendar click on the date to refresh"
@@ -122,6 +123,7 @@ const CreateEvent = ({ navigation, route }) => {
             "Network Connection failure",
             "Check your internet connection and try again"
           );
+          setIsBusy(false);
         }
       })
       .catch((e) => {
@@ -217,7 +219,13 @@ const CreateEvent = ({ navigation, route }) => {
               style={styles.saveButton}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}>
-              <Text style={styles.saveText}>Save</Text>
+              <Text style={styles.saveText}>
+                {isBusy ? (
+                  <ActivityIndicator size="small" color="#fff" />
+                ) : (
+                  "Save"
+                )}
+              </Text>
             </LinearGradient>
           </TouchableOpacity>
         </View>
