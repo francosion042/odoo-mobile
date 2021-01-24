@@ -1,12 +1,10 @@
 {
   "name": "odoo-mobile",
-  "displayName": "odoo-mobile",
+  "displayName": "Odoo Mobile",
   "expo": {
-    "name": "odoo-mobile",
+    "name": "Odoo Mobile",
     "slug": "odoo-mobile",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "assetBundlePatterns": ["**/*"]
   }
 }

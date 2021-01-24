@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "683828267533",
+    "project_id": "odoo-mobile-793ea",
+    "storage_bucket": "odoo-mobile-793ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683828267533:android:07d5d9467a92ea7ad2a344",
+        "android_client_info": {
+          "package_name": "com.odoomobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "683828267533-7j9v9gqgdh01p68hec413mgrruig93h2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-1wuvL9mdJi3ceJ339A0htgCvP0jCYwE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "683828267533-7j9v9gqgdh01p68hec413mgrruig93h2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
