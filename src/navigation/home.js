@@ -4,9 +4,9 @@ import { Alert } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import LinearGradient from "react-native-linear-gradient";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { Home, Notifiactions, Profiles } from "../screens";
 import ProjectsTabNavigator from "./projects";
 import DiscussTabNavigator from "./discuss";
+import NotificationsStackNavigator from "./notifications";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { OdooConfig } from "../../constants/configs";
 import { AuthContext, CalendarContext } from "../contexts";
@@ -112,7 +112,10 @@ const HomeTabNavigator = ({ navigation, route }) => {
         name="Projects"
         component={ProjectsTabNavigator}
       />
-      <MaterialTopTabs.Screen name="Notifications" component={Notifiactions} />
+      <MaterialTopTabs.Screen
+        name="Notifications"
+        component={NotificationsStackNavigator}
+      />
     </MaterialTopTabs.Navigator>
   );
 };

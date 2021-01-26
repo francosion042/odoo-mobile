@@ -14,12 +14,14 @@ import { AuthContext, NotificationsContext } from "../../contexts";
 import { LoadingScreen } from "../../commons";
 import { OdooConfig } from "../../../constants/configs";
 import styles from "./styles/notificationsStyles";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-export default function Notifications() {
+export default function Notifications({ navigation, route }) {
   const { user } = useContext(AuthContext);
-  // const [notifications, addNotifications] = useState("");
+  // const [notifications, addNotifications] = useState(false);
   const { addNotifications, notifications } = useContext(NotificationsContext);
   const [isLoading, setIsLoading] = useState(true);
+
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   ////////////////////////////
@@ -30,14 +32,17 @@ export default function Notifications() {
   };
   /////////////////////////////
 
-  useEffect(() => {
-    setTimeout(() => {
-      Alert.alert(
-        "Tips",
-        "Dear user, to refresh the notifications, scroll to the top, then swipe down"
-      );
-    }, 5000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     Alert.alert(
+  //       "Tips",
+  //       "Dear user, to refresh the notifications, scroll to the top, then swipe down"
+  //     );
+  //   }, 5000);
+  // }, []);
+  // if (notifications) {
+  //   setIsLoading(false);
+  // }
 
   useEffect(() => {
     const Odoo = new OdooConfig(user.email, user.password);
@@ -45,12 +50,15 @@ export default function Notifications() {
       .connect()
       .then(async (response) => {
         console.log(response.success);
-        console.log(user.email, "||", user.password);
+
         if (response.success) {
           //////////////////////////////////////////////
           // get all messages and add them to  the discuss context. this will make it easier to navigate between chats
           const params = {
-            domain: [["message_type", "=", "notification"]],
+            domain: [
+              ["message_type", "=", "notification"],
+              ["author_id", "!=", "OdooBot"],
+            ],
             fields: [
               "id",
               "subject",
@@ -62,23 +70,26 @@ export default function Notifications() {
               "date",
             ],
             order: "date DESC",
+            // limit: 10,
           };
 
           await Odoo.odoo
             .search_read("mail.message", params)
             .then((response) => {
               if (response.data) {
+                console.log(response.data);
                 const notes = response.data.filter((el) => {
                   return el.subject;
                 });
                 addNotifications(notes);
-                setIsRefreshing(false);
                 setIsLoading(false);
+                setIsRefreshing(false);
               }
             })
             .catch((e) => {
               console.log(e);
               setIsRefreshing(false);
+              setIsLoading(false);
             });
         } else {
           setIsLoading(false);
@@ -94,29 +105,36 @@ export default function Notifications() {
       });
   }, [isRefreshing]);
 
-  // if (isLoading) {
-  //   return <LoadingScreen />;
-  // }
-
-  if (!notifications) {
-    return (
-      <View>
-        <Text>No Notifications</Text>
-      </View>
-    );
+  if (isLoading) {
+    return <LoadingScreen />;
   }
 
+  // if (!notifications) {
+  //   return (
+  //     <View>
+  //       <Text>No Notifications</Text>
+  //     </View>
+  //   );
+  // }
+
   return (
-    <View>
-      <ScrollView
-        refreshControl={
-          <RefreshControl
-            refreshing={isRefreshing}
-            onRefresh={() => setIsRefreshing(true)}
-          />
-        }>
-        {notifications.map((n, i) => (
-          <ListItem key={i} bottomDivider>
+    <ScrollView
+      refreshControl={
+        <RefreshControl
+          refreshing={isRefreshing}
+          onRefresh={() => setIsRefreshing(true)}
+        />
+      }>
+      {notifications.map((n, i) => (
+        <TouchableOpacity
+          key={i}
+          onPress={() =>
+            navigation.navigate("NotificationDetails", {
+              subject: n.subject,
+              body: n.body,
+            })
+          }>
+          <ListItem bottomDivider>
             {n.author_avatar ? (
               <Image
                 style={styles.avatar}
@@ -141,17 +159,18 @@ export default function Notifications() {
                 </ListItem.Subtitle>
               </ListItem.Content>
               <ListItem.Content>
-                <ListItem.Subtitle>
+                {/* <ListItem.Subtitle>
                   Body:{" "}
                   {extractHTML(n.body)
                     ? extractHTML(n.body)
                     : "(images are not supported)"}
-                </ListItem.Subtitle>
+                </ListItem.Subtitle> */}
               </ListItem.Content>
             </ListItem.Content>
+            <ListItem.Chevron />
           </ListItem>
-        ))}
-      </ScrollView>
-    </View>
+        </TouchableOpacity>
+      ))}
+    </ScrollView>
   );
 }

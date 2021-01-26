@@ -9,8 +9,6 @@ import {
   Image,
   Alert,
 } from "react-native";
-import { ListItem } from "react-native-elements";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import he from "he";
 import { AuthContext, DiscussContext } from "../../contexts";
 import { LoadingScreen } from "../../commons";

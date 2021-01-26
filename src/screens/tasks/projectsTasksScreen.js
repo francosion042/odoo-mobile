@@ -38,16 +38,24 @@ export default function ProjectTasks({ route, navigation }) {
   }
 
   return (
-    <View>
-      <ScrollView
-        refreshControl={
-          <RefreshControl
-            refreshing={isRefreshing}
-            onRefresh={() => setIsRefreshing(true)}
-          />
-        }>
-        {projectTasks.map((t, i) => (
-          <ListItem bottomDivider key={i}>
+    <ScrollView
+      refreshControl={
+        <RefreshControl
+          refreshing={isRefreshing}
+          onRefresh={() => setIsRefreshing(true)}
+        />
+      }>
+      {projectTasks.map((t, i) => (
+        <TouchableOpacity
+          key={i}
+          onPress={() =>
+            navigation.navigate("taskDetails", {
+              name: t.name,
+              description: t.description,
+              customer: t.partner_id,
+            })
+          }>
+          <ListItem bottomDivider>
             <Ionicons name="ios-list-box" size={40} color="#A1CDF2" />
             <ListItem.Content>
               <ListItem.Title>{t.name}</ListItem.Title>
@@ -63,9 +71,10 @@ export default function ProjectTasks({ route, navigation }) {
               </ListItem.Subtitle>
               <ListItem.Subtitle>Deadline: {t.date_deadline}</ListItem.Subtitle>
             </ListItem.Content>
+            <ListItem.Chevron />
           </ListItem>
-        ))}
-      </ScrollView>
-    </View>
+        </TouchableOpacity>
+      ))}
+    </ScrollView>
   );
 }

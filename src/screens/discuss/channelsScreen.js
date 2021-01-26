@@ -68,42 +68,40 @@ export default function Channels({ navigation }) {
     return <LoadingScreen />;
   }
   return (
-    <View>
-      <ScrollView
-        refreshControl={
-          <RefreshControl
-            refreshing={isRefreshing}
-            onRefresh={() => setIsRefreshing(true)}
-          />
-        }>
-        {channels.map((c, i) => (
-          <TouchableOpacity
-            key={i}
-            onPress={() =>
-              navigation.navigate("ChannelsMessages", {
-                channel_id: c.id,
-                channel_name: c.name,
-              })
-            }>
-            <ListItem bottomDivider>
-              <Image
-                style={{
-                  borderRadius: 20,
-                  width: 30,
-                  height: 30,
-                }}
-                source={{
-                  uri: `data:image/png;base64,${c.image_128}`,
-                }}
-              />
-              <ListItem.Content>
-                <ListItem.Title>{c.name}</ListItem.Title>
-              </ListItem.Content>
-              <ListItem.Chevron />
-            </ListItem>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
-    </View>
+    <ScrollView
+      refreshControl={
+        <RefreshControl
+          refreshing={isRefreshing}
+          onRefresh={() => setIsRefreshing(true)}
+        />
+      }>
+      {channels.map((c, i) => (
+        <TouchableOpacity
+          key={i}
+          onPress={() =>
+            navigation.navigate("ChannelsMessages", {
+              channel_id: c.id,
+              channel_name: c.name,
+            })
+          }>
+          <ListItem bottomDivider>
+            <Image
+              style={{
+                borderRadius: 20,
+                width: 30,
+                height: 30,
+              }}
+              source={{
+                uri: `data:image/png;base64,${c.image_128}`,
+              }}
+            />
+            <ListItem.Content>
+              <ListItem.Title>{c.name}</ListItem.Title>
+            </ListItem.Content>
+            <ListItem.Chevron />
+          </ListItem>
+        </TouchableOpacity>
+      ))}
+    </ScrollView>
   );
 }

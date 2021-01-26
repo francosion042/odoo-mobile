@@ -62,34 +62,32 @@ export default function Projects({ navigation }) {
   }
 
   return (
-    <View>
-      <ScrollView
-        refreshControl={
-          <RefreshControl
-            refreshing={isRefreshing}
-            onRefresh={() => setIsRefreshing(true)}
-          />
-        }>
-        {projects.map((p, i) => (
-          <TouchableOpacity
-            key={i}
-            onPress={() =>
-              navigation.navigate("projectTasks", { project_id: p.id })
-            }>
-            <ListItem bottomDivider>
-              <Ionicons name="ios-briefcase" size={40} color="#A1CDF2" />
-              <ListItem.Content>
-                <ListItem.Title>{p.name}</ListItem.Title>
-                <ListItem.Subtitle>
-                  Client: {p.partner_id ? p.partner_id[1] : "Annonymous"}
-                </ListItem.Subtitle>
-                <ListItem.Subtitle>{p.task_count} Tasks</ListItem.Subtitle>
-              </ListItem.Content>
-              <ListItem.Chevron />
-            </ListItem>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
-    </View>
+    <ScrollView
+      refreshControl={
+        <RefreshControl
+          refreshing={isRefreshing}
+          onRefresh={() => setIsRefreshing(true)}
+        />
+      }>
+      {projects.map((p, i) => (
+        <TouchableOpacity
+          key={i}
+          onPress={() =>
+            navigation.navigate("projectTasks", { project_id: p.id })
+          }>
+          <ListItem bottomDivider>
+            <Ionicons name="ios-briefcase" size={40} color="#A1CDF2" />
+            <ListItem.Content>
+              <ListItem.Title>{p.name}</ListItem.Title>
+              <ListItem.Subtitle>
+                Client: {p.partner_id ? p.partner_id[1] : "Annonymous"}
+              </ListItem.Subtitle>
+              <ListItem.Subtitle>{p.task_count} Tasks</ListItem.Subtitle>
+            </ListItem.Content>
+            <ListItem.Chevron />
+          </ListItem>
+        </TouchableOpacity>
+      ))}
+    </ScrollView>
   );
 }

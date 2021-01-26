@@ -71,44 +71,42 @@ export default function Channels({ navigation, route }) {
 
   console.log(route);
   return (
-    <View>
-      <ScrollView
-        refreshControl={
-          <RefreshControl
-            refreshing={isRefreshing}
-            onRefresh={() => setIsRefreshing(true)}
-          />
-        }>
-        {directChannels.map((c, i) => (
-          <TouchableOpacity
-            key={i}
-            onPress={() =>
-              navigation.navigate("DirectMessages", {
-                channel_id: c.id,
-                channel_name: splitNames(c.name, user.name),
-              })
-            }>
-            <ListItem bottomDivider>
-              {/* <Ionicons name="ios-person" size={40} color="#7c7bad" /> */}
-              <Image
-                style={{
-                  borderRadius: 20,
-                  width: 30,
-                  height: 30,
-                }}
-                source={{
-                  uri: `data:image/png;base64,${c.image_128}`,
-                }}
-              />
-              <ListItem.Content>
-                <ListItem.Title>{splitNames(c.name, user.name)}</ListItem.Title>
-              </ListItem.Content>
-              <ListItem.Chevron />
-            </ListItem>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
-    </View>
+    <ScrollView
+      refreshControl={
+        <RefreshControl
+          refreshing={isRefreshing}
+          onRefresh={() => setIsRefreshing(true)}
+        />
+      }>
+      {directChannels.map((c, i) => (
+        <TouchableOpacity
+          key={i}
+          onPress={() =>
+            navigation.navigate("DirectMessages", {
+              channel_id: c.id,
+              channel_name: splitNames(c.name, user.name),
+            })
+          }>
+          <ListItem bottomDivider>
+            {/* <Ionicons name="ios-person" size={40} color="#7c7bad" /> */}
+            <Image
+              style={{
+                borderRadius: 20,
+                width: 30,
+                height: 30,
+              }}
+              source={{
+                uri: `data:image/png;base64,${c.image_128}`,
+              }}
+            />
+            <ListItem.Content>
+              <ListItem.Title>{splitNames(c.name, user.name)}</ListItem.Title>
+            </ListItem.Content>
+            <ListItem.Chevron />
+          </ListItem>
+        </TouchableOpacity>
+      ))}
+    </ScrollView>
   );
 }
 

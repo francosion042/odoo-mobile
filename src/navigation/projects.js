@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import LinearGradient from "react-native-linear-gradient";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { Projects, ProjectTasks, MyTasks } from "../screens";
+import { Projects, ProjectTasks, MyTasks, TaskDetails } from "../screens";
 import { OdooConfig } from "../../constants/configs";
 import { AuthContext, TasksContext } from "../contexts";
 import { LoadingScreen } from "../commons";
@@ -55,6 +55,23 @@ const ProjectsStackNavigator = ({ navigation, route }) => {
           headerTintColor: "#fff",
         })}
       />
+      <ProjectsStack.Screen
+        name="taskDetails"
+        component={TaskDetails}
+        options={({ route }) => ({
+          headerShown: false,
+          title: "Task Details",
+          headerBackground: () => (
+            <LinearGradient
+              colors={["#017AFF", "#A1CDF2"]}
+              style={{ flex: 1 }}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+            />
+          ),
+          headerTintColor: "#fff",
+        })}
+      />
     </ProjectsStack.Navigator>
   );
 };
@@ -79,8 +96,10 @@ const ProjectsTabNavigator = () => {
           const params = {
             fields: [
               "name",
+              "description",
               "project_id",
               "user_id",
+              "partner_id",
               "stage_id",
               "date_deadline",
             ],
