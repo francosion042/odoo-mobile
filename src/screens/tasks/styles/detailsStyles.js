@@ -2,8 +2,9 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   detailsHeader: {
-    height: 100,
+    minHeight: 100,
     backgroundColor: "grey",
+    paddingBottom: 20,
   },
   headerSubject: {
     textAlign: "center",

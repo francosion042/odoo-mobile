@@ -16,6 +16,7 @@ const CalendarStackNavigator = ({ navigation, route }) => {
         options={({ route }) => ({
           title: "Calendar",
           headerShown: true,
+          headerTintColor: "#fff",
           headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.openDrawer()}>
               <Icon
@@ -52,6 +53,7 @@ const CalendarStackNavigator = ({ navigation, route }) => {
         options={({ route }) => ({
           title: "New Event",
           headerShown: true,
+          headerTintColor: "#fff",
           headerBackground: () => (
             <LinearGradient
               colors={["#017AFF", "#A1CDF2"]}

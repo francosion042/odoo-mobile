@@ -16,6 +16,7 @@ const ProfileStackNavigator = ({ navigation, route }) => {
         options={({ route }) => ({
           title: "Profile",
           headerShown: true,
+          headerTintColor: "#fff",
           headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.openDrawer()}>
               <Icon

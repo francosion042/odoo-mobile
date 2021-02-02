@@ -18,8 +18,8 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function Notifications({ navigation, route }) {
   const { user } = useContext(AuthContext);
-  // const [notifications, addNotifications] = useState(false);
-  const { addNotifications, notifications } = useContext(NotificationsContext);
+  const [notifications, addNotifications] = useState(false);
+  // const { addNotifications, notifications } = useContext(NotificationsContext);
   const [isLoading, setIsLoading] = useState(true);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -70,7 +70,7 @@ export default function Notifications({ navigation, route }) {
               "date",
             ],
             order: "date DESC",
-            // limit: 10,
+            // limit: 20,
           };
 
           await Odoo.odoo
@@ -108,14 +108,6 @@ export default function Notifications({ navigation, route }) {
   if (isLoading) {
     return <LoadingScreen />;
   }
-
-  // if (!notifications) {
-  //   return (
-  //     <View>
-  //       <Text>No Notifications</Text>
-  //     </View>
-  //   );
-  // }
 
   return (
     <ScrollView

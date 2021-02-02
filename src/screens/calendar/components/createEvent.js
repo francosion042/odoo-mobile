@@ -8,6 +8,7 @@ import {
   ScrollView,
   Alert,
   ActivityIndicator,
+  KeyboardAvoidingView,
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -134,102 +135,104 @@ const CreateEvent = ({ navigation, route }) => {
   ////////////////////////////////////////////////
   return (
     <ScrollView>
-      <View style={styles.containerView}>
-        <View>
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Meeting Subject</Text>
-            <TextInput
-              placeholder="Subject"
-              placeholderColor="#c4c3cb"
-              value={subject}
-              onChangeText={(text) => setSubject(text)}
-              style={styles.FormTextInput}
-            />
-          </View>
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Start Date-Time</Text>
-            <TouchableOpacity
-              onPress={() => setModalVisible(true)}
-              style={styles.FormTextInput}>
-              <Text style={styles.modalOpenText}>{startDateStr}</Text>
-            </TouchableOpacity>
-            <Modal transparent={true} visible={modalVisible}>
-              <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                  <DatePicker date={startDate} onDateChange={setStartDate} />
-                  <TouchableOpacity onPress={() => setModalVisible(false)}>
-                    <Icon name="save" size={30} color="#A1CDF2" />
-                  </TouchableOpacity>
+      <KeyboardAvoidingView style={{ flex: 1 }}>
+        <View style={styles.containerView}>
+          <View>
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Meeting Subject</Text>
+              <TextInput
+                placeholder="Subject"
+                placeholderColor="#c4c3cb"
+                value={subject}
+                onChangeText={(text) => setSubject(text)}
+                style={styles.FormTextInput}
+              />
+            </View>
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Start Date-Time</Text>
+              <TouchableOpacity
+                onPress={() => setModalVisible(true)}
+                style={styles.FormTextInput}>
+                <Text style={styles.modalOpenText}>{startDateStr}</Text>
+              </TouchableOpacity>
+              <Modal transparent={true} visible={modalVisible}>
+                <View style={styles.centeredView}>
+                  <View style={styles.modalView}>
+                    <DatePicker date={startDate} onDateChange={setStartDate} />
+                    <TouchableOpacity onPress={() => setModalVisible(false)}>
+                      <Icon name="save" size={30} color="#A1CDF2" />
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
-            </Modal>
-          </View>
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Stop Date-Time</Text>
-            <TouchableOpacity
-              onPress={() => setModalVisible(true)}
-              style={styles.FormTextInput}>
-              <Text style={styles.modalOpenText}>{stopDateStr}</Text>
-            </TouchableOpacity>
-            <Modal transparent={true} visible={modalVisible}>
-              <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                  <DatePicker date={stopDate} onDateChange={setStopDate} />
-                  <TouchableOpacity onPress={() => setModalVisible(false)}>
-                    <Icon name="save" size={30} color="#A1CDF2" />
-                  </TouchableOpacity>
+              </Modal>
+            </View>
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Stop Date-Time</Text>
+              <TouchableOpacity
+                onPress={() => setModalVisible(true)}
+                style={styles.FormTextInput}>
+                <Text style={styles.modalOpenText}>{stopDateStr}</Text>
+              </TouchableOpacity>
+              <Modal transparent={true} visible={modalVisible}>
+                <View style={styles.centeredView}>
+                  <View style={styles.modalView}>
+                    <DatePicker date={stopDate} onDateChange={setStopDate} />
+                    <TouchableOpacity onPress={() => setModalVisible(false)}>
+                      <Icon name="save" size={30} color="#A1CDF2" />
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
-            </Modal>
-          </View>
-          <View style={styles.inputContainerDesc}>
-            <Text style={styles.inputLabel}>Meeting Description</Text>
-            <TextInput
-              placeholder="Description"
-              placeholderColor="#c4c3cb"
-              value={description}
-              multiline={true}
-              numberOfLines={10}
-              onChangeText={(text) => setDescription(text)}
-              style={[
-                styles.FormTextInput,
-                {
-                  height: 100,
-                  justifyContent: "flex-start",
-                  textAlignVertical: "top",
-                },
-              ]}
-            />
-          </View>
+              </Modal>
+            </View>
+            <View style={styles.inputContainerDesc}>
+              <Text style={styles.inputLabel}>Meeting Description</Text>
+              <TextInput
+                placeholder="Description"
+                placeholderColor="#c4c3cb"
+                value={description}
+                multiline={true}
+                numberOfLines={10}
+                onChangeText={(text) => setDescription(text)}
+                style={[
+                  styles.FormTextInput,
+                  {
+                    height: 100,
+                    justifyContent: "flex-start",
+                    textAlignVertical: "top",
+                  },
+                ]}
+              />
+            </View>
 
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Meeting Location</Text>
-            <TextInput
-              placeholder="Location"
-              placeholderColor="#c4c3cb"
-              value={location}
-              onChangeText={(text) => setLocation(text)}
-              style={styles.FormTextInput}
-            />
-          </View>
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Meeting Location</Text>
+              <TextInput
+                placeholder="Location"
+                placeholderColor="#c4c3cb"
+                value={location}
+                onChangeText={(text) => setLocation(text)}
+                style={styles.FormTextInput}
+              />
+            </View>
 
-          <TouchableOpacity onPress={() => createEvent()}>
-            <LinearGradient
-              colors={["#017AFF", "#A1CDF2"]}
-              style={styles.saveButton}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}>
-              <Text style={styles.saveText}>
-                {isBusy ? (
-                  <ActivityIndicator size="small" color="#fff" />
-                ) : (
-                  "Save"
-                )}
-              </Text>
-            </LinearGradient>
-          </TouchableOpacity>
+            <TouchableOpacity onPress={() => createEvent()}>
+              <LinearGradient
+                colors={["#017AFF", "#A1CDF2"]}
+                style={styles.saveButton}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}>
+                <Text style={styles.saveText}>
+                  {isBusy ? (
+                    <ActivityIndicator size="small" color="#fff" />
+                  ) : (
+                    "Save"
+                  )}
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </ScrollView>
   );
 };

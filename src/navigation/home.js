@@ -79,6 +79,7 @@ const HomeStackNavigator = ({ navigation, route }) => {
         options={({ route }) => ({
           title: "Odoo Mobile",
           headerShown: true,
+          headerTintColor: "#fff",
           headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.openDrawer()}>
               <Icon

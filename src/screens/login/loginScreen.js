@@ -4,7 +4,6 @@ import {
   Text,
   View,
   TextInput,
-  TouchableWithoutFeedback,
   Alert,
   KeyboardAvoidingView,
   TouchableOpacity,
@@ -75,11 +74,17 @@ export function Login({ navigation }) {
           );
         } else if (response.error.data.arguments[0] === "Access denied") {
           setIsLoading(false);
+          Alert.alert("Authentication Failed", "Incorrect Email or Password");
           setError("Incorrect Email or Password");
         } else if (!response.success) {
           setIsLoading(false);
+          Alert.alert(
+            "Network Connection failure",
+            "Check your internet connection and try again"
+          );
         } else {
           setIsLoading(false);
+          Alert.alert("Authentication Failed", "Incorrect Email or Password");
         }
       })
       .catch((e) => {
@@ -94,47 +99,37 @@ export function Login({ navigation }) {
 
   return (
     <KeyboardAvoidingView style={styles.containerView} behavior="padding">
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.loginScreenContainer}>
-          <View style={styles.loginFormView}>
-            <Text style={styles.logoText}>Odoo Mobile</Text>
-            <TextInput
-              placeholder="Username"
-              placeholderColor="#c4c3cb"
-              style={styles.loginFormTextInput}
-              value={email}
-              onChangeText={(text) => setEmail(text)}
-            />
-            <TextInput
-              placeholder="Password"
-              placeholderColor="#c4c3cb"
-              style={styles.loginFormTextInput}
-              secureTextEntry={true}
-              value={password}
-              onChangeText={(text) => setPassword(text)}
-            />
-            <TouchableOpacity onPress={() => authenticate()}>
-              <LinearGradient
-                colors={["#017AFF", "#A1CDF2"]}
-                style={styles.loginButton}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}>
-                <Text style={styles.logInText}>Log In</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-          </View>
+      <View style={styles.loginScreenContainer}>
+        <View style={styles.loginFormView}>
+          <Text style={styles.logoText}>Odoo Mobile</Text>
+          <TextInput
+            placeholder="Email"
+            placeholderColor="#c4c3cb"
+            style={styles.loginFormTextInput}
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+          />
+          <TextInput
+            placeholder="Password"
+            placeholderColor="#c4c3cb"
+            style={styles.loginFormTextInput}
+            secureTextEntry={true}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+          />
+          <TouchableOpacity onPress={() => authenticate()}>
+            <LinearGradient
+              colors={["#017AFF", "#A1CDF2"]}
+              style={styles.loginButton}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}>
+              <Text style={styles.logInText}>Log In</Text>
+            </LinearGradient>
+          </TouchableOpacity>
         </View>
-      </TouchableWithoutFeedback>
+      </View>
     </KeyboardAvoidingView>
   );
 }
-
-// export default (props) => {
-//   return (
-//     <AuthContextProvider>
-//       <Login navigation={props.navigation} />
-//     </AuthContextProvider>
-//   );
-// };
 
 export default Login;
