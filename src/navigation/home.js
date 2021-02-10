@@ -6,7 +6,7 @@ import LinearGradient from "react-native-linear-gradient";
 import Icon from "react-native-vector-icons/FontAwesome";
 import ProjectsTabNavigator from "./projects";
 import DiscussTabNavigator from "./discuss";
-import NotificationsStackNavigator from "./notifications";
+import NotificationsTabNavigator from "./notifications";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { OdooConfig } from "../../constants/configs";
 import { AuthContext, CalendarContext } from "../contexts";
@@ -49,7 +49,7 @@ const HomeStackNavigator = ({ navigation, route }) => {
               .then((response) => {
                 if (response.data) {
                   addEvents(response.data);
-                  console.log(response.data);
+                  // console.log(response.data);
                 }
               })
               .catch((e) => {
@@ -66,7 +66,7 @@ const HomeStackNavigator = ({ navigation, route }) => {
         .catch((e) => {
           console.log(e);
         });
-    }, 3000);
+    }, 5000);
   }, []);
 
   //////////////////////////////////////////////////////////////////////////////////////
@@ -115,7 +115,7 @@ const HomeTabNavigator = ({ navigation, route }) => {
       />
       <MaterialTopTabs.Screen
         name="Notifications"
-        component={NotificationsStackNavigator}
+        component={NotificationsTabNavigator}
       />
     </MaterialTopTabs.Navigator>
   );

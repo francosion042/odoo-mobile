@@ -35,11 +35,12 @@ export default function ChannelsMessages({ route, navigation }) {
         ms.push(messages[i]);
       }
     }
-    setMsgs(ms);
-    setIsLoading(false);
+    setMsgs(ms.splice(-50));
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
   }, [messages]);
   ///////////////////////////////////////////////////////////////////////
-  console.log(msgs);
   ////////////////////////////
   // the body of each message is a string of HTML element, so it needs to be etracted and decoded
   const extractHTML = (html) => {

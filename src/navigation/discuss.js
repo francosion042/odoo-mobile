@@ -106,56 +106,6 @@ const ChannelsStackNavigator = ({ navigation, route }) => {
 };
 
 const DiscussTabNavigator = () => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  const { user } = useContext(AuthContext);
-  const { addMessages } = useContext(DiscussContext);
-
-  useEffect(() => {
-    const Odoo = new OdooConfig(user.email, user.password);
-
-    Odoo.odoo
-      .connect()
-      .then((response) => {
-        console.log(response.success);
-        if (response.success) {
-          setIsLoading(false);
-          //////////////////////////////////////////////
-          // get all messages and add them to  the discuss context. this will make it easier to navigate between chats
-          const params = {
-            // domain: [["message_type", "=", "comment"]],
-            fields: [
-              "subject",
-              "body",
-              "author_id",
-              "author_avatar",
-              "message_type",
-              "channel_ids",
-              "date",
-            ],
-            order: "date ASC",
-          };
-
-          Odoo.odoo
-            .search_read("mail.message", params)
-            .then((response) => {
-              addMessages(response.data);
-              //console.log(response.data);
-            })
-            .catch((e) => {
-              console.log(e);
-            });
-          ///////////////////////////////////////////////////
-        } else {
-          setIsLoading(false);
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-        setIsLoading(false);
-      });
-  }, []);
-
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({

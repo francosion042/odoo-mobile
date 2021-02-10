@@ -24,6 +24,7 @@ export default function DirectMessages({ route, navigation }) {
 
   const { channel_id, channel_name } = route.params;
   const { messages, addMessages } = useContext(DiscussContext);
+
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
@@ -33,14 +34,14 @@ export default function DirectMessages({ route, navigation }) {
         ms.push(messages[i]);
       }
     }
-    console.log(ms);
-    setMsgs(ms);
-    setIsLoading(false);
+    // console.log(ms);
+    setMsgs(ms.splice(-20));
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
   }, [messages]);
   ///////////////////////////////////////////////////////////////////////
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
+
   ////////////////////////////
   // the body of each message is a string of HTML element, so it needs to be etracted and decoded
   const extractHTML = (html) => {
@@ -105,7 +106,9 @@ export default function DirectMessages({ route, navigation }) {
       });
   };
 
-  console.log(route);
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <View style={styles.container}>

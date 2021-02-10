@@ -18,7 +18,7 @@ export default function Channels({ navigation }) {
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const { user } = useContext(AuthContext);
-  const { channels, addChannels } = useContext(DiscussContext);
+  const { channels, addChannels, addMessages } = useContext(DiscussContext);
 
   useEffect(() => {
     const Odoo = new OdooConfig(user.email, user.password);
@@ -28,7 +28,25 @@ export default function Channels({ navigation }) {
       .then((response) => {
         console.log(response.data);
         if (response.success) {
-          const params = {
+          const params1 = {
+            // domain: [["message_type", "=", "comment"]],
+            fields: [
+              "subject",
+              "body",
+              "author_id",
+              "author_avatar",
+              "message_type",
+              "channel_ids",
+              "date",
+            ],
+            order: "date ASC",
+          };
+
+          Odoo.odoo.search_read("mail.message", params1).then((response) => {
+            addMessages(response.data);
+            //console.log(response.data);
+          });
+          const params2 = {
             domain: [["channel_type", "=", "channel"]],
             fields: [
               "name",
@@ -39,7 +57,7 @@ export default function Channels({ navigation }) {
           };
 
           Odoo.odoo
-            .search_read("mail.channel", params)
+            .search_read("mail.channel", params2)
             .then((response) => {
               addChannels(response.data);
               setIsLoading(false);

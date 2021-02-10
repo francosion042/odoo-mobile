@@ -15,6 +15,18 @@ const styles = StyleSheet.create({
   subject: {
     fontWeight: "bold",
   },
+  main: {
+    // flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    height: 300,
+  },
+  text: {
+    alignSelf: "center",
+    marginTop: 50,
+    fontWeight: "bold",
+    fontSize: 15,
+  },
 });
 
 export default styles;

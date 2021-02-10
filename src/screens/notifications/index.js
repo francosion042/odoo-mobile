@@ -1,4 +1,5 @@
 import Notifiactions from "./notificationsScreen";
-import notificationDetails from "./components/notificationDetails";
+import NewNotifiactions from "./newNotificationsScreen";
+import NotificationDetails from "./components/notificationDetails";
 
-export { Notifiactions, notificationDetails };
+export { Notifiactions, NewNotifiactions, NotificationDetails };
