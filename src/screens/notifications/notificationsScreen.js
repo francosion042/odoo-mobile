@@ -32,79 +32,12 @@ export default function Notifications({ navigation, route }) {
   };
   /////////////////////////////
 
-  // useEffect(() => {
-  //   const Odoo = new OdooConfig(user.email, user.password);
-  //   Odoo.odoo
-  //     .connect()
-  //     .then(async (response) => {
-  //       console.log(response.success);
-
-  //       if (response.success) {
-  //         //////////////////////////////////////////////
-  //         // get all messages and add them to  the discuss context. this will make it easier to navigate between chats
-  //         const params = {
-  //           domain: [
-  //             ["message_type", "=", "notification"],
-  //             ["author_id", "!=", "OdooBot"],
-  //           ],
-  //           fields: [
-  //             "id",
-  //             "subject",
-  //             "body",
-  //             "author_id",
-  //             "author_avatar",
-  //             "message_type",
-  //             "channel_ids",
-  //             "date",
-  //           ],
-  //           order: "date DESC",
-  //           // limit: 20,
-  //         };
-
-  //         await Odoo.odoo
-  //           .search_read("mail.message", params)
-  //           .then((response) => {
-  //             if (response.data) {
-  //               console.log(response.data);
-  //               const notes = response.data.filter((el) => {
-  //                 return el.subject;
-  //               });
-  //               addNotifications(notes.splice(0, 20));
-  //               setIsLoading(false);
-  //               setIsRefreshing(false);
-  //             }
-  //           })
-  //           .catch((e) => {
-  //             console.log(e);
-  //             setIsRefreshing(false);
-  //             setIsLoading(false);
-  //           });
-  //       } else {
-  //         setIsLoading(false);
-  //         setIsRefreshing(false);
-  //         Alert.alert(
-  //           "Network Connection failure",
-  //           "Check your internet connection and try again"
-  //         );
-  //       }
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
-  // }, [isRefreshing]);
-
-  if (!notifications) {
+  if (notifications.length === 0) {
     return <LoadingScreen />;
   }
 
   return (
-    <ScrollView
-      refreshControl={
-        <RefreshControl
-          refreshing={isRefreshing}
-          onRefresh={() => setIsRefreshing(true)}
-        />
-      }>
+    <ScrollView>
       {notifications.map((n, i) => (
         <TouchableOpacity
           key={i}

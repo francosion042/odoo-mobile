@@ -62,10 +62,7 @@ export default function NewNotifications({ navigation, route }) {
             .then((response) => {
               if (response.data) {
                 // console.log(response.data);
-                const notes = response.data.filter((el) => {
-                  return el.subject;
-                });
-                addNotifications(notes);
+
                 /////////////////////////////////////////////////////////////////
                 AsyncStorage.getItem("notifications")
                   .then((oldNotes) => {
@@ -82,13 +79,19 @@ export default function NewNotifications({ navigation, route }) {
                         exclude(notes, parsedNotes),
                         "excluded notification"
                       );
-                      console.log(parsedNotes, "parsed data");
+                      // console.log(parsedNotes, "parsed data");
                       // console.log(notes, "notes");
                     }
                   })
                   .catch((e) => {
                     console.log(e);
                   });
+                /////////////////////////////////////////////////////////
+                const notes = response.data.filter((el) => {
+                  return el.subject;
+                });
+
+                addNotifications(notes);
                 ////////////////////////////////////////////////////////
                 setIsLoading(false);
                 setIsRefreshing(false);

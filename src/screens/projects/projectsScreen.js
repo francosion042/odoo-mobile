@@ -76,7 +76,7 @@ export default function Projects({ navigation }) {
             navigation.navigate("projectTasks", { project_id: p.id })
           }>
           <ListItem bottomDivider>
-            <Ionicons name="ios-briefcase" size={40} color="#A1CDF2" />
+            <Ionicons name="ios-briefcase" size={40} color="#7c7bad" />
             <ListItem.Content>
               <ListItem.Title>{p.name}</ListItem.Title>
               <ListItem.Subtitle>

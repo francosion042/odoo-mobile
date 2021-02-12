@@ -56,7 +56,7 @@ export default function ProjectTasks({ route, navigation }) {
             })
           }>
           <ListItem bottomDivider>
-            <Ionicons name="ios-list-box" size={40} color="#A1CDF2" />
+            <Ionicons name="ios-list-box" size={40} color="#7c7bad" />
             <ListItem.Content>
               <ListItem.Title>{t.name}</ListItem.Title>
               <ListItem.Subtitle>
